@@ -5,19 +5,21 @@
             "about": "A paper-and-pencil game for two players who take turns marking the spaces in a three-by-three grid with X or O.",
             "img": "/Images/XOX.png",
             "codeScr": "https://codepen.io/Mustak24/pen/gONOyYB",
-            "time": ""
+            "time": "08/03/2024"
         },
         {
             "title": "Number Guess",
             "about": "A basic game where your machine choose a number between 0 to 100 you guess it in given chanse.",
             "img": "/Images/Number Guess.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/NWZWmqZ"
+            "codeScr": "https://codepen.io/Mustak24/pen/NWZWmqZ",
+            "time": "06/03/2024"
         },
         {
             "title": "Number Box",
             "about": "It is a basic math game that strog your math.",
             "img": "/Images/Number Box.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/OJeJGNq"
+            "codeScr": "https://codepen.io/Mustak24/pen/OJeJGNq",
+            "time": "26/03/2024"
         },
         {
             "title": "Sanke Game",
@@ -47,7 +49,8 @@
             "title": "Binggo",
             "about": "It's a two player game you play this game with your friends.",
             "img": "/Images/Bingoo.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/zYVrYKJ"
+            "codeScr": "https://codepen.io/Mustak24/pen/zYVrYKJ",
+            "time": "10/03/2024"
         }
     ],
 
@@ -57,56 +60,64 @@
             "title": "100 Days CSS",
             "about": "An easy start into the challenge with a custom build number with gradient.",
             "img": "/Images/Day 1.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/QWRyrZM"
+            "codeScr": "https://codepen.io/Mustak24/pen/QWRyrZM",
+            "time": "19/05/2024"
           },
           {
             "day": "Day 2",
             "title": "Menu Icon",
             "about": "Used on almost every website by now, simple but impressively animated it becomes a real eye-catcher",
             "img": "/Images/Day 2.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/bGyEKEY"
+            "codeScr": "https://codepen.io/Mustak24/pen/bGyEKEY",
+            "time": "25/09/2024"
           },
           {
             "day": "Day 3",
             "title": "The Pyramide",
             "about": "Not as challenging as the real pyramids in Egypt, but the shadow path is not easy.",
             "img": "/Images/Day 3.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/bGyEKEY"
+            "codeScr": "https://codepen.io/Mustak24/pen/bGyEKEY",
+            "time": "20/05/2024"
           },
           {
             "day": "Day 4",
             "title": "Loading",
             "about": "The best are always websites that do not need a loading status. If they do, here would be a calming one.",
             "img": "/Images/Day 4.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/bGyEKEY"
+            "codeScr": "https://codepen.io/Mustak24/pen/bGyEKEY",
+            "time": "20/05/2024"
           },
           {
             "day": "Day 5",
             "title": "Statistic",
             "about": "In a world of numbers, it is important to be able to interpret them correctly. Beautiful statistics help to capture these data.",
             "img": "/Images/Day 5.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/RwmaBGj"
+            "codeScr": "https://codepen.io/Mustak24/pen/RwmaBGj",
+            "time": "21/05/2024"
           },
           {
             "day": "Day 6",
             "title": "Profile",
             "about": "https://codepen.io/Mustak24/pen/PovNdWM",
             "img": "/Images/Day 6.png",
-            "codeScr": "Who of you knows how many social media profiles you have already created? For a refreshing twist, you can also create one yourself."
+            "codeScr": "Who of you knows how many social media profiles you have already created? For a refreshing twist, you can also create one yourself.",
+            "time": "21/05/2024"
           },
           {
             "day": "Day 7",
             "title": "Notifications Menu",
             "about": "Search and Menu: The three cornerstones of any application? Brought together in the smallest possible space.",
             "img": "/Images/Day 7.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/PovNdWM"
+            "codeScr": "https://codepen.io/Mustak24/pen/PovNdWM",
+            "time": "23/05/2024"
           },
           {
             "day": "Day 8",
             "title": "Metaballs",
             "about": "At first glance impossible to implement with CSS, but filters make this possible too.",
             "img": "/Images/Day 8.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/PovGNaG"
+            "codeScr": "https://codepen.io/Mustak24/pen/PovGNaG",
+            "time": "24/05/2024"
           }
     ],
 
@@ -115,25 +126,29 @@
             "title": "Weather App",
             "about": "A basic app by use it you finde any place weather.",
             "img": "/Images/Weather.png",
-            "codeScr": "https://replit.com/@Mustak24/Weather?v=1"
+            "codeScr": "https://replit.com/@Mustak24/Weather?v=1",
+            "time": "11/05/2024"
         },
         {
             "title": "Infix to Postfix Converter",
             "about": "Infix expression: The expression of the form \"a operator b\" (a + b) i.e., when an operator is in-between every pair of operands.Postfix expression: The expression of the form \"a b operator\" (ab+) i.e., When every pair of operands is followed by an operator. Examples: Input: A + B * C +",
             "img": "/Images/infix to postfix.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/XWLWQYe"
+            "codeScr": "https://codepen.io/Mustak24/pen/XWLWQYe",
+            "time": "07/09/2024"
         },
         {
             "title": "Clock",
             "about": "Simpel cool clock in aqua color.",
             "img": "/Images/Clock.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/VwJwNVg"
+            "codeScr": "https://codepen.io/Mustak24/pen/VwJwNVg",
+            "time": "07/09/2024"
         },
         {
             "title": "Calculater",
             "about": "let make easy math by using this calculater.",
             "img": "/Images/Calculater.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/XWLWQGZ"
+            "codeScr": "https://codepen.io/Mustak24/pen/XWLWQGZ",
+            "time": "28/04/2024"
         },
         {
             "title": "Alarm Clock",
@@ -151,7 +166,8 @@
             "title": "Note List",
             "about": "Save your small note by using Note list.",
             "img": "/Images/Note List.png",
-            "codeScr": "https://codepen.io/Mustak24/pen/poXgojr"
+            "codeScr": "https://codepen.io/Mustak24/pen/poXgojr",
+            "time": "15/05/2024"
         }
     ]
 }

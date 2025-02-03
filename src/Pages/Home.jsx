@@ -6,6 +6,8 @@ import { FaArrowLeft } from "react-icons/fa";
 import { BsBalloonHeartFill } from "react-icons/bs";
 import projetsInfo from '../assets/all-projects-data.json';
 import AutoSlider from "../Components/AutoSlider";
+import { LuCalendarClock } from "react-icons/lu";
+import { FaCode } from "react-icons/fa";
 
 
 export default function Home({}){
@@ -60,7 +62,7 @@ export default function Home({}){
                     {'by @Mustak24'.split('').map((c, i) => <span key={i}>{c}</span>)}
                 </TypingHeading>
                 
-                <div className="overflow-hidden w-full">
+                <div className="overflow-hidden w-full relative">
                     <AutoSlider>
                     {
                         Object.values(projetsInfo).flat(1).map((info, index) => 
@@ -68,7 +70,8 @@ export default function Home({}){
                                 key={index} 
                                 title={info.title} 
                                 img={info.img}   
-                                link={info.codeScr} 
+                                link={info.codeScr}
+                                about={info.about} 
                             />)
                     }
                     </AutoSlider>
@@ -80,16 +83,25 @@ export default function Home({}){
 }
 
 
-function ProjectCard({title, time, img, link}){
-    return <div className="pt-2">
-        <div className="flex justify-between items-center w-full">
-            <div className="text-sm font-bold text-blue-500">{title}</div>
-            <div className="text-xs">{time}</div>
+function ProjectCard({title, time='_ _/_ _/_ _ _ _', img, link, about}){
+    return <div className="pt-2 w-full">
+        <div className="flex justify-between items-center w-full pb-1">
+            <a href={link} title="view code" target="_blank" className="flex items-center gap-1 text-sm font-bold text-blue-500 hover:underline">
+                <FaCode />
+                {title}
+            </a>
+            <div className="text-xs flex gap-2 pr-2">
+                {time}
+                <LuCalendarClock />
+            </div>
         </div>
-
-        <button onClick={()=> console.log(link)} className="w-full max-h-[300px] overflow-hidden aspect-video rounded-md relative flex items-center justify-center cursor-pointer">
-            <img src={img} alt="" className="object-fill w-full h-full blur-lg" />
-            <img src={img} alt="" className="object-contain h-full absolute" />
-        </button>
+        
+        <div className="flex items-center justify-center w-full h-fit group relative overflow-hidden rounded-md">
+            <div className="w-full z-1 max-h-[300px] aspect-video relative flex items-center justify-center">
+                <img src={img} alt="" className="object-fill w-full h-full blur-lg" />
+                <img src={img} alt="" className="object-contain h-full absolute" />
+            </div>
+            <div className="absolute z-2 text-xl text-white w-full h-full bg-[rgb(0,0,0,.8)] p-2 transition-all duration-100 opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 group-hover:translate-y-0 translate-y-full line-clamp-4 sm:line-clamp-5">{about}</div>
+        </div>
     </div>
 }

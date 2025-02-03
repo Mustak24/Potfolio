@@ -17,10 +17,10 @@ export default function AutoSlider({children, speed=5, effectTime=500, color='wh
         });
     }
 
-    function sliderEffect(){
+    async function sliderEffect(){
         if(!effectBox.current) return;
-
-        effectBox.current.childNodes.forEach(e => {
+        effectBox.current.style.scale = 1;
+        effectBox.current.childNodes.forEach(async e => {
                 e.style.scale = 1;
                 e.style.opacity = 1;
                 setTimeout(() => {
@@ -28,6 +28,8 @@ export default function AutoSlider({children, speed=5, effectTime=500, color='wh
                     e.style.opacity = .5;
                 }, effectTime + 1100)
         })
+        await delay((effectTime+1050)*2 );
+        effectBox.current.style.scale = 0;
     }
 
     async function handelSliding(){
@@ -64,28 +66,28 @@ export default function AutoSlider({children, speed=5, effectTime=500, color='wh
     }, [effectBox.current, size])
 
     return (<>
-        <div className="w-full h-full flex items-center relative overflow-hidden z-[-1]">
-            <div className="shrink-0 w-full h-full relative">{children[activeIndex]}</div>
-            <div ref={effectBox} className="effect absolute w-full h-full flex flex-wrap overflow-hidden">
-            {
-                effectBoxs.map((delay,i) => {
-                    return(
-                        <div 
-                            key={i} 
-                            className="aspect-square flex-1" 
-                            style={{
-                                transition: `all ${effectTime}ms ${delay}s`,
-                                backgroundColor: color,
-                                width: `${size}px`,
-                                height: `${size}px`,
-                                opacity: 0,
-                                scale: 0
-                            }}
-                        ></div>
-                    )
-                })
-            }
-            </div>
+        <div className="w-full h-full flex items-center relative overflow-hidden">
+                {children[activeIndex]}
+                <div ref={effectBox} className="effect z-2 absolute w-full h-full flex flex-wrap overflow-hidden" style={{scale: 0}}>
+                {
+                    effectBoxs.map((delay,i) => {
+                        return(
+                            <div 
+                                key={i} 
+                                className="aspect-square flex-1" 
+                                style={{
+                                    transition: `all ${effectTime}ms ${delay}s`,
+                                    backgroundColor: color,
+                                    width: `${size}px`,
+                                    height: `${size}px`,
+                                    opacity: 0,
+                                    scale: 0
+                                }}
+                            ></div>
+                        )
+                    })
+                }
+                </div>
         </div>
     </>)
 }
