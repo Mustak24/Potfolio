@@ -67,6 +67,7 @@ export default function AutoSlider({children, speed=5, effectTime=500, color='wh
 
     return (<>
         <div className="w-full h-full flex items-center relative overflow-hidden">
+            <div className="hidden">{children[(activeIndex+1)%children.length]}</div>
                 {children[activeIndex]}
                 <div ref={effectBox} className="effect z-2 absolute w-full h-full flex flex-wrap overflow-hidden" style={{scale: 0}}>
                 {
