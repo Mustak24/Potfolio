@@ -1,7 +1,7 @@
 
 import Button from "../Components/Buttton";
-import { Card3d, Card3dMove } from "../Components/Card";
-import { TypingHeading } from "../Components/Heading";
+import { AutoMove, Card3d, Card3dMove } from "../Components/Card";
+import { Heading3d, TypingHeading } from "../Components/Heading";
 import { FaArrowLeft } from "react-icons/fa";
 import { BsBalloonHeartFill } from "react-icons/bs";
 import projetsInfo from '../assets/all-projects-data.json';
@@ -12,7 +12,7 @@ import { FaCode } from "react-icons/fa";
 
 export default function Home({}){
     return <div id="home" className="relative flex flex-wrap gap-10 justify-between w-full sm:pt-40 max-sm:pt-10 select-none">
-        <div className="font-semibold ">
+        <div className="font-semibold">
             <div className="flex gap-5 max-sm:flex-col text-[40px]">
                 <Card3dMove direction={-1} className={'bg-blue-400 text-white px-5 rounded-full w-fit'}>Hello ,</Card3dMove>    
                  <span className="opacity-70 text-[.9em]">My Name <span className="sm:hidden">is</span></span>
@@ -41,8 +41,12 @@ export default function Home({}){
                 text="A dedicated Web Developer building scalable web applications using React, Nextjs, Node.js, Express, and MongoDB."
             />
 
-            <div className="text-sm mt-5 sm:mt-10 animate-bounce">
+            <div className="text-sm mt-5 sm:mt-10 animate-bounce shrink-0 h-fit">
                 <Button onClick={() => window.location = '#Contact'} className="cursor-pointer" text="royalblue">GET IN TOCH</Button>
+            </div>
+
+            <div className="max-lg:hidden absolute bottom-2 text-5xl  text-black font-bold opacity-80">
+                <Heading3d text="About - Me" perspective="25" />
             </div>
         </div>
 

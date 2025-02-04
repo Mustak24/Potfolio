@@ -9,7 +9,7 @@ import Scrollbar from './Components/Scrollbar'
 
 function App() {
   return (
-    <div className='w-screen flex flex-col items-center px-5 bg-pink-100'>
+    <div className='w-screen flex flex-col items-center px-5 max-sm:px-2  bg-pink-100'>
       <Navbar/>
       <Home/>
       <About/>
