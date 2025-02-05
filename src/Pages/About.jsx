@@ -27,19 +27,19 @@ export default function About(){
                         <div className="font-semibold text-lg">
                             Frontend Dev
                             <ol className="list-disc pl-5 text-md">
-                                {['React', 'Next', 'Tailwind'].map(e => <li className="">{e}</li>)}
+                                {['React', 'Next', 'Tailwind'].map((e, i) => <li key={i} className="">{e}</li>)}
                             </ol>
                         </div>
                         <div className="font-semibold text-lg">
                             Backend Dev
                             <ol className="list-disc pl-5 text-md">
-                                {['Node', 'Express', 'MongoDb'].map(e => <li className="">{e}</li>)}
+                                {['Node', 'Express', 'MongoDb'].map((e, i) => <li key={i} className="">{e}</li>)}
                             </ol>
                         </div>
                         <div className="font-semibold text-lg">
                             Programming Languages
                             <ol className="list-disc pl-5 text-md">
-                                {['C', 'C++', 'Python'].map(e => <li className="">{e}</li>)}
+                                {['C', 'C++', 'Python'].map((e, i) => <li key={i} className="">{e}</li>)}
                             </ol>
                         </div>
                     </div>

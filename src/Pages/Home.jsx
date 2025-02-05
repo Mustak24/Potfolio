@@ -1,6 +1,6 @@
 
 import Button from "../Components/Buttton";
-import { AutoMove, Card3d, Card3dMove } from "../Components/Card";
+import { Card3d, Card3dMove } from "../Components/Card";
 import { Heading3d, TypingHeading } from "../Components/Heading";
 import { FaArrowLeft } from "react-icons/fa";
 import { BsBalloonHeartFill } from "react-icons/bs";
@@ -11,6 +11,7 @@ import { FaCode } from "react-icons/fa";
 
 
 export default function Home({}){
+
     return <div id="home" className="relative flex flex-wrap gap-10 justify-between w-full sm:pt-40 max-sm:pt-10 select-none">
         <div className="font-semibold">
             <div className="flex gap-5 max-sm:flex-col text-[40px]">

@@ -5,21 +5,20 @@ import { FaCode } from "react-icons/fa";
 import { MdOutlineContacts } from "react-icons/md";
 import { Card3dMove } from "./Card";
 
-export default function Navbar({}){
-
-    const navigationRoutes = [
-        ['Home', <FiHome />], 
-        ['About', <IoMdInformationCircleOutline />], 
-        ['Projects', <FaCode />], 
-        ['Contact', <MdOutlineContacts />]
-    ];
+export default function Navbar({navigationRoutesInfo}){
 
     const [navigationIndex, setNavigationIndex] = useState(0);
 
-    function handleNavigation(){  
+    navigationRoutesInfo = [
+        {name: 'Home', icon: <FiHome />, id: 'home', url: 'home'},
+        {name: 'About', icon: <IoMdInformationCircleOutline />, id: 'about', url: 'about'},
+        {name: 'Projects', icon: <FaCode />, id: 'projects', url: 'projects'},
+        {name: 'Contact', icon: <MdOutlineContacts />, id: 'contact', url: 'contact'},
+    ];
 
+    function handleNavigation(navigationIndex){  
         const navbar = document.getElementById('navbar').firstElementChild;
-        if(!navbar || navigationIndex >= navigationRoutes.length) return;
+        if(!navbar || navigationIndex >= navigationRoutesInfo.length) return;
 
         let parentInfo = navbar.getBoundingClientRect();
         let childInfo = navbar.children[navigationIndex].getBoundingClientRect();
@@ -28,28 +27,50 @@ export default function Navbar({}){
         navbar.lastElementChild.style.width = childInfo.width + 'px';
     }
 
+    function handleResizeEvent(){
+        return handleNavigation(navigationIndex);
+    }
+
+    function handleNavigationOnScroll(){
+        let pagesInfo = navigationRoutesInfo.map(({id}) => 
+            document.getElementById(id)?.getBoundingClientRect()?.top
+        );
+
+        for(let i=0; i<pagesInfo.length; i++){
+            let top = pagesInfo[pagesInfo.length - i - 1];
+            if(-200 < top && top < 200) 
+                return setNavigationIndex(pagesInfo.length - i - 1);
+        }
+    }
+
     useEffect(() => {
-        window.addEventListener('resize', handleNavigation)
-        return () => removeEventListener('reset', handleNavigation)
+        window.addEventListener('resize', handleResizeEvent);
+        document.body.addEventListener('scroll', handleNavigationOnScroll);
+        return () => {
+            window.removeEventListener('resize', handleResizeEvent);
+            document.body.removeEventListener('scroll', handleNavigationOnScroll);
+        }
     }, [])
 
     useEffect(() => {
         handleNavigation(navigationIndex);
     }, [navigationIndex])
 
+   
+
+
     return <>
         <nav id="navbar" className="fixed z-[900] sm:top-10 max-sm:bottom-10">
             <Card3dMove maxDic={40} effect="local" className={'flex items-center justify-center gap-2 h-12 bg-blue-300 text-white rounded-full '}>
-                {navigationRoutes.map((item, index) => {
+                {navigationRoutesInfo.map((item, index) => {
                     return <a 
-                            href={`#${item[0].toLowerCase()}`} 
-                            onClick={() => setNavigationIndex(index)} 
                             key={index} 
+                            href={item.url || `#${item.name.toLowerCase()}`} 
+                            onClick={() => setNavigationIndex(index)} 
                             className="text-sm z-2 font-semibold px-5 text-center" 
-                            info-key={item}
                         >
-                            <span className="max-sm:hidden">{item[0]}</span>
-                            <span className="sm:hidden text-lg">{item[1]}</span>
+                            <span className="max-sm:hidden">{item.name}</span>
+                            <span className="sm:hidden text-lg">{item.icon}</span>
                     </a>
                 })}
                 <div className="absolute h-full z-1 bg-blue-400 rounded-full transition-all duration-200"></div>
