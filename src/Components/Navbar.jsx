@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { FiHome } from "react-icons/fi";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { FaCode } from "react-icons/fa";
@@ -8,6 +8,7 @@ import { Card3dMove } from "./Card";
 export default function Navbar({navigationRoutesInfo}){
 
     const [navigationIndex, setNavigationIndex] = useState(0);
+    const navbarBox = useRef(null)
 
     navigationRoutesInfo = [
         {name: 'Home', icon: <FiHome />, id: 'home', url: 'home'},
@@ -17,7 +18,7 @@ export default function Navbar({navigationRoutesInfo}){
     ];
 
     function handleNavigation(navigationIndex){  
-        const navbar = document.getElementById('navbar').firstElementChild;
+        const navbar = navbarBox.current.firstElementChild;
         if(!navbar || navigationIndex >= navigationRoutesInfo.length) return;
 
         let parentInfo = navbar.getBoundingClientRect();
@@ -58,9 +59,8 @@ export default function Navbar({navigationRoutesInfo}){
 
    
 
-
     return <>
-        <nav id="navbar" className="fixed z-[900] sm:top-10 max-sm:bottom-10">
+        <nav ref={navbarBox} id="navbar" className="fixed z-[900] sm:top-10 max-sm:bottom-10">
             <Card3dMove maxDic={40} effect="local" className={'flex items-center justify-center gap-2 h-12 bg-blue-300 text-white rounded-full '}>
                 {navigationRoutesInfo.map((item, index) => {
                     return <a 

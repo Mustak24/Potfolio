@@ -23,12 +23,7 @@ export default function Home({}){
                 <div className="max-sm:hidden flex gap-5 items-end mt-5">
                     is 
                     <Card3dMove effect="local" className="flex gap-3 text-3xl sm:text-[50px] text-white bg-blue-400 rounded-full py-1 px-5 sm:px-10">
-                        <div className="flex">{
-                            "Mustak".split('').map((char, index) => <Card3d key={index} perspective="50">{char}</Card3d>)
-                        }</div>
-                        <div className="flex">{
-                            "Khan".split('').map((char, index) => <Card3d key={index} perspective="20">{char}</Card3d>)
-                        }</div>
+                        Mustak Khan
                     </Card3dMove>
                 </div>
                 <div className="sm:hidden text-blue-400">

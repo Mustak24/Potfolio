@@ -97,3 +97,21 @@ export function Card3dMove({effect='global', children, maxDic=10, className, per
     </div>
   )
 }
+
+
+export function Card3dRotate({children, back='back', duration=300, perspective=500}){
+  return <>
+    <div 
+      className="flex items-center justify-center group select-none w-full h-full"
+      style={{perspective}}
+    >
+        <div 
+          className="flex w-full h-full items-center justify-center relative group-hover:rotate-y-180 transform-3d"
+          style={{transition: `all ${duration}ms`}}
+        >
+          <div className="backface-hidden rotate-y-180 w-full h-full">{back}</div>
+          <div className="absolute backface-hidden w-full h-full">{children}</div>
+        </div>
+    </div>
+  </>
+}

@@ -1,5 +1,7 @@
+import { Card3dRotate } from "../Components/Card";
 import Details from "../Components/Details";
 import { Heading3d } from "../Components/Heading";
+import Marquee from "../Components/Marquee";
 
 
 export default function About(){
@@ -64,5 +66,39 @@ export default function About(){
                 </Details>
             </div>
         </div>
+        
+        <TechStake/>
+        <TechStake direction={-1} />
     </div>
+}
+
+function TechStake({direction=1}){
+
+    const info = ['c', 'cpp', 'python', 'html', 'css', 'js', 'nodejs', 'react', 'tailwind', 'ejs', 'nextjs', 'mongodb', 'jwt', 'bootstrap'].map(e => {
+        return {
+            name: e.length  < 5 ? e.toUpperCase() : e.substring(0,4).toUpperCase() + '...' ,
+            path: `/Icons/${e}.png`
+        }
+    });
+
+    return <>
+        <Marquee direction={direction} className="my-10">
+            <div className="flex gap-5">
+                {info.map(({name, path}, i) => {
+                    return (
+                        <div key={i} className="size-22 hover:border-1 rounded-full p-2 border-blue-400 transition-all">
+                            <Card3dRotate 
+                                back={
+                                    <div className="bg-blue-400 w-full h-full rounded-full flex items-center justify-center text-white font-semibold">
+                                        {name}
+                                    </div>
+                                }>
+                                <img src={path} className="w-full h-full object-cover" />
+                            </Card3dRotate>
+                        </div>
+                    )
+                })}
+            </div>
+        </Marquee>
+    </>
 }
