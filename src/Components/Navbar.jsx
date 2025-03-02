@@ -11,10 +11,10 @@ export default function Navbar({navigationRoutesInfo}){
     const navbarBox = useRef(null)
 
     navigationRoutesInfo = [
-        {name: 'Home', icon: <FiHome />, id: 'home', url: 'home'},
-        {name: 'About', icon: <IoMdInformationCircleOutline />, id: 'about', url: 'about'},
-        {name: 'Projects', icon: <FaCode />, id: 'projects', url: 'projects'},
-        {name: 'Contact', icon: <MdOutlineContacts />, id: 'contact', url: 'contact'},
+        {name: 'Home', icon: <FiHome />, id: 'home', url: '#home'},
+        {name: 'About', icon: <IoMdInformationCircleOutline />, id: 'about', url: '#about'},
+        {name: 'Projects', icon: <FaCode />, id: 'projects', url: '#projects'},
+        {name: 'Contact', icon: <MdOutlineContacts />, id: 'contact', url: '#contact'},
     ];
 
     function handleNavigation(navigationIndex){  
