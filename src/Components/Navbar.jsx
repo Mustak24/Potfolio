@@ -46,10 +46,10 @@ export default function Navbar({navigationRoutesInfo}){
 
     useEffect(() => {
         window.addEventListener('resize', handleResizeEvent);
-        document.body.addEventListener('scroll', handleNavigationOnScroll);
+        document.body.addEventListener('scrollend', handleNavigationOnScroll);
         return () => {
             window.removeEventListener('resize', handleResizeEvent);
-            document.body.removeEventListener('scroll', handleNavigationOnScroll);
+            document.body.removeEventListener('scrollend', handleNavigationOnScroll);
         }
     }, [])
 
@@ -61,7 +61,7 @@ export default function Navbar({navigationRoutesInfo}){
 
     return <>
         <nav ref={navbarBox} id="navbar" className="fixed z-[900] sm:top-10 max-sm:bottom-10">
-            <Card3dMove maxDic={40} effect="local" className={'flex items-center justify-center gap-2 h-12 bg-blue-300 text-white rounded-full '}>
+            <Card3dMove maxDic={40} effect="local" className={'flex items-center justify-center gap-2 h-12 bg-blue-400 text-white rounded-full'}>
                 {navigationRoutesInfo.map((item, index) => {
                     return <a 
                             key={index} 
@@ -73,7 +73,7 @@ export default function Navbar({navigationRoutesInfo}){
                             <span className="sm:hidden text-lg">{item.icon}</span>
                     </a>
                 })}
-                <div className="absolute h-full z-1 bg-blue-400 rounded-full transition-all duration-200"></div>
+                <div className="absolute h-full z-1 bg-black border-3 border-white rounded-full transition-all duration-200"></div>
             </Card3dMove>
         </nav>
     </>

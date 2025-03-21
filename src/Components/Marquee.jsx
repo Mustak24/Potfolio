@@ -17,7 +17,6 @@ export default function Marquee({children, className, animationDuration=30, dire
             style={{
                 position: 'relative',
                 display: 'flex',
-                overflow: 'hidden'
             }}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -26,7 +25,7 @@ export default function Marquee({children, className, animationDuration=30, dire
                 return (
                     <div
                         key={e} 
-                        className="shrink-0 w-full flex gap-5 overflow-hidden px-3" 
+                        className="shrink-0 w-full flex gap-5 px-3" 
                         style={{
                             minWidth: 'max-content', 
                             position: e ? 'absolute' : 'relative',

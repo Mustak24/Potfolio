@@ -1,24 +1,24 @@
-import { Card3dRotate } from "../Components/Card";
+
 import Details from "../Components/Details";
-import { Heading3d } from "../Components/Heading";
 import Marquee from "../Components/Marquee";
 
 
 export default function About(){
     return <div id="about" className="w-full mt-10">
-        <div className="lg:hidden text-5xl text-black font-bold opacity-80">
-            <Heading3d text="About - Me" perspective="25" />
-        </div>
+
         <div className="w-full sm:bg-zinc-900  max-sm:rounded-lg rounded-4xl sm:mt-10 p-10 pb-4 flex gap-10 max-sm:flex-col max-sm:items-center sm:min-h-[400px]">
             <div className="lg:hidden flex-1 max-w-[400px] ">
-                <Details summary="@Mustak24" className={'text-md text-pretty'}>
-                    <p className="flex-1"> 
+                <div className="relative bg-zinc-700 text-white rounded-xl p-5 h-full flex flex-col gap-5 pt-10">
+                    <span className="absolute top-0 translate-y-[-50%] bg-white px-5 rounded-full text-black h-10 flex items-center font-semibold">@Mustak</span>
+                    
+                    <p className="bg-zinc-900 p-4 rounded-xl"> 
                         My self Mustak khan from Udaipur. I am a passionate developer always exploring and learning new technologies. 
                     </p>
-                    <p className="pt-2">
+                    
+                    <p className="bg-zinc-900 p-4 rounded-xl">
                     I know Python, JavaScript, C, C++ and HTML CSS. I know React for frontend, node ans express for backend and mongoDb for Database.   
                     </p>
-                </Details>
+                </div>
             </div>
 
             <div className="max-lg:hidden text-white flex-1">
@@ -26,23 +26,26 @@ export default function About(){
                 <div className="px-2 flex flex-col gap-10 ">
                     <p className="indent-8 px-2 max-w-[600px]" >My self Mustak khan from Udaipur. I am a passionate developer always exploring and learning new technologies. </p>
                     <div className="flex gap-10">
-                        <div className="font-semibold text-lg">
-                            Frontend Dev
-                            <ol className="list-disc pl-5 text-md">
-                                {['React', 'Next', 'Tailwind'].map((e, i) => <li key={i} className="">{e}</li>)}
-                            </ol>
+                        <div className="font-semibold text-xs">
+                            <Details summary="Frontend Dev" className={'flex-1'}>
+                                <div className="text-lg w-[120px]">
+                                    {['React', 'Next', 'Tailwind'].map((e, i) => <p key={i} ># {e}</p>)}
+                                </div>
+                            </Details>
                         </div>
-                        <div className="font-semibold text-lg">
-                            Backend Dev
-                            <ol className="list-disc pl-5 text-md">
-                                {['Node', 'Express', 'MongoDb'].map((e, i) => <li key={i} className="">{e}</li>)}
-                            </ol>
+                        <div className="font-semibold text-xs">
+                            <Details summary="Backend Dev" className={'flex-1'}>
+                                <div className="text-lg w-[120px]">
+                                    {['Node', 'Express', 'MongoDb'].map((e, i) => <p key={i} ># {e}</p>)}
+                                </div>
+                            </Details>
                         </div>
-                        <div className="font-semibold text-lg">
-                            Programming Languages
-                            <ol className="list-disc pl-5 text-md">
-                                {['C', 'C++', 'Python'].map((e, i) => <li key={i} className="">{e}</li>)}
-                            </ol>
+                        <div className="font-semibold text-xs">
+                            <Details summary="Programming Languages" className={'flex-1'}>
+                                <div className="text-lg w-[180px]">
+                                    {['C', 'C++', 'Python'].map((e, i) => <p key={i} ># {e}</p>)}
+                                </div>
+                            </Details>
                         </div>
                     </div>
                 </div>
@@ -76,7 +79,7 @@ function TechStake({direction=1}){
 
     const info = ['c', 'cpp', 'python', 'html', 'css', 'js', 'nodejs', 'react', 'tailwind', 'ejs', 'nextjs', 'mongodb', 'jwt', 'bootstrap'].map(e => {
         return {
-            name: e.length  < 5 ? e.toUpperCase() : e.substring(0,4).toUpperCase() + '...' ,
+            name: e.toUpperCase(),
             path: `/Icons/${e}.png`
         }
     });
@@ -86,15 +89,13 @@ function TechStake({direction=1}){
             <div className="flex gap-5">
                 {info.map(({name, path}, i) => {
                     return (
-                        <div key={i} className="size-22 hover:border-1 rounded-full p-2 border-blue-400 transition-all">
-                            <Card3dRotate 
-                                back={
-                                    <div className="bg-blue-400 w-full h-full rounded-full flex items-center justify-center text-white font-semibold">
-                                        {name}
-                                    </div>
-                                }>
+                        <div key={i} className="p-2 relative flex items-center justify-center group">
+                            <div className="size-22 rounded-full relative transition-all duration-200 hover:rotate-[360deg]">
                                 <img src={path} className="w-full h-full object-cover" />
-                            </Card3dRotate>
+                            </div>
+                            <p className={"absolute h-7 text-sm font-semibold px-2 flex items-center rounded-md bg-white text-black z-10 opacity-0 group-hover:opacity-100 transition-all duration-200 " + `group-hover:translate-y-[${-direction*100}%]`} 
+                                style={direction == -1 ? {top: '100%'} : {bottom: '100%'}}    
+                            >{name}</p>
                         </div>
                     )
                 })}
