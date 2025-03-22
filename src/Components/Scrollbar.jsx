@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
+import eventHandler from "../Functions/eventHandler";
 
 export default function Scrollbar({color='rgb(0,0,0,.7)'}){
 
     const [scrollbarHeight, setScrollbarHeight] = useState(0)
 
-    function handelSrollbar(){
+    let handelSrollbar =  eventHandler(10,  () => {
         let totalHeight = document.body.scrollHeight - window.innerHeight;
         let scroll = document.body.scrollTop;
         setScrollbarHeight(scroll/totalHeight);
-    }
+    })
 
     useEffect(() => {
         document.body.addEventListener('scroll', handelSrollbar);

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import eventHandler from "../Functions/eventHandler";
 
 class Pixel{
     constructor(x, y, size, color, originF, maxDis=200){
@@ -71,10 +72,10 @@ CanvasRenderingContext2D.prototype.wrapText = function(text){
     return lines;
 }
 
-CanvasRenderingContext2D.prototype.drawText = function(lines, x, y){
+CanvasRenderingContext2D.prototype.drawText = function(lines, x=0, y=0){
     let {width, height} = this.canvas;
-    x = x || width/2;
-    y = y || height/2;
+    x += width/2;
+    y += height/2;
 
     lines = this.wrapText(lines);
 
@@ -87,8 +88,8 @@ CanvasRenderingContext2D.prototype.drawText = function(lines, x, y){
 
 CanvasRenderingContext2D.prototype.drawTextOutline = function(lines, x, y){
     let {width, height} = this.canvas;
-    x = x || width/2;
-    y = y || height/2;
+    x += width/2;
+    y += height/2;
 
     lines = this.wrapText(lines);
 
@@ -99,7 +100,7 @@ CanvasRenderingContext2D.prototype.drawTextOutline = function(lines, x, y){
     }
 }
 
-export default function ParticalText({text='WEB DEV', fontSize='20vw', color='white', className='', pixelSize=4, mouseR=50, gap=1, border=1, originF=5, hidden=false}){
+export default function ParticalText({text='WEB DEV', fontSize='20vw', color='white', className='', pixelSize=4, mouseR=50, gap=1, border=1, originF=5, hidden=false, fillTextPoints=[0,0]}){
 
 
     const canvas = useRef(null);
@@ -113,6 +114,9 @@ export default function ParticalText({text='WEB DEV', fontSize='20vw', color='wh
 
 
     function init(){
+
+        if(!canvas.current || isHidden) return;
+
         let {width, height} = canvas.current.getBoundingClientRect();
         width = Math.floor(width);
         height = Math.floor(height);
@@ -133,8 +137,8 @@ export default function ParticalText({text='WEB DEV', fontSize='20vw', color='wh
         ctx.current.lineWidth = border;
         ctx.current.fillStyle = color;
         ctx.current.strokeStyle = color;
-        ctx.current.drawText(text);
-        ctx.current.drawTextOutline(text);
+        ctx.current.drawText(text, ...fillTextPoints);
+        ctx.current.drawTextOutline(text, ...fillTextPoints);
 
         let {data} = ctx.current.getImageData(0, 0, width, height);
 
@@ -173,12 +177,15 @@ export default function ParticalText({text='WEB DEV', fontSize='20vw', color='wh
         mouseX.current = e.offsetX;
         mouseY.current = e.offsetY;
     }
+
     function handleTouch(e){
         let {pageX, pageY} = e.touches[0];
         let {x, y} = canvas.current.getBoundingClientRect();
         mouseX.current = pageX - x;
         mouseY.current = pageY - y;
     }
+
+    const handleResize = eventHandler(1000, init);
 
 
     useEffect(() => {
@@ -188,17 +195,17 @@ export default function ParticalText({text='WEB DEV', fontSize='20vw', color='wh
 
         requestAnimationFrame(animation);
 
-        canvas.current.addEventListener('mousemove', handleMouseMove);
-        canvas.current.addEventListener('touchmove', handleTouch);
-        window.addEventListener('resize', init);
+        canvas.current?.addEventListener('mousemove', handleMouseMove);
+        canvas.current?.addEventListener('touchmove', handleTouch);
+        window.addEventListener('resize', handleResize);
 
         return () => {
-            canvas.current.removeEventListener('mousemove', handleMouseMove);
-            canvas.current.removeEventListener('touchmove', handleTouch);
-            window.removeEventListener('resize', init);
+            canvas.current?.removeEventListener('mousemove', handleMouseMove);
+            canvas.current?.removeEventListener('touchmove', handleTouch);
+            window.removeEventListener('resize', handleResize);
         }
         
     }, [canvas])
 
-    return isHidden || <canvas ref={canvas} className={className}></canvas>
+    return isHidden ? null : <canvas ref={canvas} className={className}></canvas>
 }

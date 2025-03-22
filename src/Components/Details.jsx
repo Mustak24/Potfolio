@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import eventHandler from "../Functions/eventHandler";
 
 export default function Details({summary, children, className='', open=true}){
 
@@ -6,10 +7,11 @@ export default function Details({summary, children, className='', open=true}){
     const [isOpen, setIsOpen] = useState(open);
     const [maxHeight, setMaxHeight] = useState('')
 
-    function handleResize(){
+    const handleResize = eventHandler(1000, function (){
         const {height} = tag.current.getBoundingClientRect();
         setMaxHeight(`${Number(height) + 40}px`);
-    }
+    });
+    
     useEffect(() => {
         handleResize();
         window.addEventListener('resize', handleResize);

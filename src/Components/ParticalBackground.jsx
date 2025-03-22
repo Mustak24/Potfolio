@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useRef } from "react"
+import eventHandler from "../Functions/eventHandler";
 
 export default function ParticalBackground({particalRedius=8, particalColor=[255,255,255,1], className='bg-black', mouseForce=5}){
 
@@ -88,6 +89,8 @@ export default function ParticalBackground({particalRedius=8, particalColor=[255
         mouseY.current = e.y;
     }
 
+    const handleResize = eventHandler(1000, init);
+
 
     useEffect(() => {
         if(!canvas.current) return;
@@ -95,13 +98,13 @@ export default function ParticalBackground({particalRedius=8, particalColor=[255
         init();
         requestAnimationFrame(animation)
 
-        window.addEventListener('resize', init);
+        window.addEventListener('resize', handleResize);
         window.addEventListener('mousedown', handleMouseDown);
         window.addEventListener('mouseup', handleMouseUp);
         window.addEventListener('mousemove', handleMouseMove);
 
         return () => {
-            window.removeEventListener('resize', init);
+            window.removeEventListener('resize', handleResize);
             window.removeEventListener('mousedown', handleMouseDown);
             window.removeEventListener('mouseup', handleMouseUp);
             window.removeEventListener('mousemove', handleMouseMove);

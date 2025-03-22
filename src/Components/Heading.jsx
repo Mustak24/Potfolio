@@ -32,11 +32,3 @@ export function TypingHeading({className='', speed=100, text='', children=null})
         </div>
     </> 
 }
-
-export function Heading3d({text='text', className='', perspective='50', maxAngle=10}){
-    return <div className={`${className} flex`}>{
-            text.split('').map((char, index) => 
-                <Card3d key={index} className={'mr-[2px]'} perspective={perspective} maxAngle={maxAngle}>{char}</Card3d>
-            )
-    }</div>
-}

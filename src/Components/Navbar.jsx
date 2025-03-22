@@ -4,11 +4,13 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import { FaCode } from "react-icons/fa";
 import { MdOutlineContacts } from "react-icons/md";
 import { Card3dMove } from "./Card";
+import eventHandler from "../Functions/eventHandler";
 
 export default function Navbar({navigationRoutesInfo}){
 
     const [navigationIndex, setNavigationIndex] = useState(0);
     const navbarBox = useRef(null)
+    const isNavigating = useRef(false);
 
     navigationRoutesInfo = [
         {name: 'Home', icon: <FiHome />, id: 'home', url: '#home'},
@@ -28,11 +30,13 @@ export default function Navbar({navigationRoutesInfo}){
         navbar.lastElementChild.style.width = childInfo.width + 'px';
     }
 
-    function handleResizeEvent(){
+    const handleResizeEvent = eventHandler(1000, function (){
         return handleNavigation(navigationIndex);
-    }
+    });
 
-    function handleNavigationOnScroll(){
+    const handleNavigationOnScroll = eventHandler(100, function (){
+        if(isNavigating.current) return;
+
         let pagesInfo = navigationRoutesInfo.map(({id}) => 
             document.getElementById(id)?.getBoundingClientRect()?.top
         );
@@ -42,14 +46,14 @@ export default function Navbar({navigationRoutesInfo}){
             if(-200 < top && top < 200) 
                 return setNavigationIndex(pagesInfo.length - i - 1);
         }
-    }
+    })
 
     useEffect(() => {
         window.addEventListener('resize', handleResizeEvent);
-        document.body.addEventListener('scrollend', handleNavigationOnScroll);
+        document.body.addEventListener('scroll', handleNavigationOnScroll);
         return () => {
             window.removeEventListener('resize', handleResizeEvent);
-            document.body.removeEventListener('scrollend', handleNavigationOnScroll);
+            document.body.removeEventListener('scroll', handleNavigationOnScroll);
         }
     }, [])
 
@@ -66,7 +70,11 @@ export default function Navbar({navigationRoutesInfo}){
                     return <a 
                             key={index} 
                             href={item.url || `#${item.name.toLowerCase()}`} 
-                            onClick={() => setNavigationIndex(index)} 
+                            onClick={() => {
+                                isNavigating.current = true;
+                                setNavigationIndex(index);
+                                setTimeout(() => {isNavigating.current = false}, 2000)
+                            }} 
                             className="text-sm z-2 font-semibold px-5 text-center" 
                         >
                             <span className="max-sm:hidden">{item.name}</span>
