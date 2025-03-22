@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 class Pixel{
     constructor(x, y, size, color, originF, maxDis=200){
@@ -99,7 +99,7 @@ CanvasRenderingContext2D.prototype.drawTextOutline = function(lines, x, y){
     }
 }
 
-export default function ParticalText({text='WEB DEV', fontSize='20vw', color='white', className='', pixelSize=4, mouseR=50, gap=1, border=1, originF=5}){
+export default function ParticalText({text='WEB DEV', fontSize='20vw', color='white', className='', pixelSize=4, mouseR=50, gap=1, border=1, originF=5, hidden=false}){
 
 
     const canvas = useRef(null);
@@ -108,11 +108,20 @@ export default function ParticalText({text='WEB DEV', fontSize='20vw', color='wh
     const mouseX = useRef(0);
     const mouseY = useRef(0);
 
+    const [isHidden, setHidden] = useState(hidden);
+
+
 
     function init(){
         let {width, height} = canvas.current.getBoundingClientRect();
         width = Math.floor(width);
         height = Math.floor(height);
+        
+        if(Math.min(width, height) < 10){
+            setHidden(true)
+            return false;
+        }
+
         canvas.current.width = width;
         canvas.current.height = height;
 
@@ -141,9 +150,13 @@ export default function ParticalText({text='WEB DEV', fontSize='20vw', color='wh
         }
 
         ctx.current.clearRect(0,0,width, height)
+
+        return true;
     }
 
     function animation(){
+        if(isHidden) return;
+
         requestAnimationFrame(animation);
         if(!ctx.current) return
 
@@ -160,23 +173,32 @@ export default function ParticalText({text='WEB DEV', fontSize='20vw', color='wh
         mouseX.current = e.offsetX;
         mouseY.current = e.offsetY;
     }
+    function handleTouch(e){
+        let {pageX, pageY} = e.touches[0];
+        let {x, y} = canvas.current.getBoundingClientRect();
+        mouseX.current = pageX - x;
+        mouseY.current = pageY - y;
+    }
 
 
     useEffect(() => {
         if(!canvas.current) return;
         
-        init();
+        if(!init()) return;
+
         requestAnimationFrame(animation);
 
         canvas.current.addEventListener('mousemove', handleMouseMove);
+        canvas.current.addEventListener('touchmove', handleTouch);
         window.addEventListener('resize', init);
 
         return () => {
             canvas.current.removeEventListener('mousemove', handleMouseMove);
+            canvas.current.removeEventListener('touchmove', handleTouch);
             window.removeEventListener('resize', init);
         }
         
     }, [canvas])
 
-    return <canvas ref={canvas} className={className}></canvas>
+    return isHidden || <canvas ref={canvas} className={className}></canvas>
 }

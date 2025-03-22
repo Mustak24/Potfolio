@@ -69,6 +69,9 @@ export default function ParticalBackground({particalRedius=8, particalColor=[255
             partical.show(ctx.current)
             partical.update(canvas.current.width, canvas.current.height, mouseX.current, mouseY.current, 2*maxNetDis.current, mouseF.current);
         }
+
+        mouseX.current = null;
+        mouseY.current = null;
     
     }
 
