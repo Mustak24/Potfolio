@@ -199,6 +199,7 @@ export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColo
         
         windowWidth.current = width;
         init();
+        startAgainAnimation();
     }, 1000);
 
 

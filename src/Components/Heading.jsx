@@ -1,5 +1,4 @@
 import { Children } from "react"
-import { applyCss } from "../Functions/basic";
 
 export function TypingHeading({className='', speed=100, text='', children=null}){
     return <>

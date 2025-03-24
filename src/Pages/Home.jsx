@@ -57,9 +57,9 @@ export default function Home({}){
                 
                 <div className="relative text-5xl flex items-center gap-10">
                     is
-                    <div className="relative flex items-center justify-center">
-                        <div className="absolute w-[210px] bg-blue-400 -z-1 rounded-full h-[70px] bottom-0"></div>
-                        <ParticalText text="Mustak" className="w-full max-w-[220px] h-[80px]" fontSize="50px" pixelSize={2} border={0} mouseR={50} gap={0} />      
+                    <div className="relative flex items-center justify-center overflow-visible">
+                        <div className="w-[210px] bg-blue-400 -z-1 rounded-full h-[70px] "></div>
+                        <ParticalText text="Mustak" className="absolute" fontSize="50px" pixelSize={2} border={0} mouseR={50} gap={0} />      
                     </div>
                 </div>
 
