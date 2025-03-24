@@ -6,7 +6,7 @@ import Marquee from "../Components/Marquee";
 export default function About(){
     return <div id="about" className="w-full mt-10">
 
-        <div className="w-full sm:bg-zinc-900  max-sm:rounded-lg rounded-4xl sm:mt-10 p-10 pb-4 flex gap-10 max-sm:flex-col max-sm:items-center sm:min-h-[400px]">
+        <div className="w-full sm:bg-zinc-900  max-sm:rounded-lg rounded-4xl sm:mt-10 sm:p-10 pb-4 flex gap-10 max-sm:flex-col max-sm:items-center sm:min-h-[400px]">
             <div className="lg:hidden flex-1 max-w-[400px] ">
                 <div className="relative bg-zinc-700 text-white rounded-xl p-5 h-full flex flex-col gap-5 pt-10">
                     <span className="absolute top-0 translate-y-[-50%] bg-white px-5 rounded-full text-black h-10 flex items-center font-semibold">@Mustak</span>

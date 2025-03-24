@@ -8,7 +8,7 @@ export default function View({children, minWidth=0, maxWidth=Infinity}){
         setLoad(minWidth < window.innerWidth && window.innerWidth < maxWidth);
     }
     
-    const handleResize = eventHandler(1000, handleLoad)
+    const handleResize = eventHandler(handleLoad, 1000)
     
     useEffect(() => {
         window.addEventListener('resize', handleResize);

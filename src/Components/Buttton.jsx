@@ -8,7 +8,7 @@ export default function Button({children, isLoading=false, loadingInnerHTML='Wai
 
     useEffect(() => {
         if(!button.current) return;
-        setScale(button.current.offsetWidth/4)
+        setScale(button.current.offsetWidth/3)
     }, [button.current]);
     
     return (

@@ -6,22 +6,25 @@ import { MdOutlineContacts } from "react-icons/md";
 import { Card3dMove } from "./Card";
 import eventHandler from "../Functions/eventHandler";
 
-export default function Navbar({navigationRoutesInfo}){
-
-    const [navigationIndex, setNavigationIndex] = useState(0);
-    const navbarBox = useRef(null)
-    const isNavigating = useRef(false);
-
-    navigationRoutesInfo = [
+export default function Navbar({routes}){
+    routes = [
         {name: 'Home', icon: <FiHome />, id: 'home', url: '#home'},
         {name: 'About', icon: <IoMdInformationCircleOutline />, id: 'about', url: '#about'},
         {name: 'Projects', icon: <FaCode />, id: 'projects', url: '#projects'},
         {name: 'Contact', icon: <MdOutlineContacts />, id: 'contact', url: '#contact'},
     ];
 
+    const [navigationIndex, setNavigationIndex] = useState(0);
+    const navbarBox = useRef(null)
+    const routesInfo = useRef(null);
+
+
+
     function handleNavigation(navigationIndex){  
         const navbar = navbarBox.current.firstElementChild;
-        if(!navbar || navigationIndex >= navigationRoutesInfo.length) return;
+        if(!navbar || !routesInfo.current) return;
+
+        navigationIndex = (navigationIndex + routes.length)%routes.length;
 
         let parentInfo = navbar.getBoundingClientRect();
         let childInfo = navbar.children[navigationIndex].getBoundingClientRect();
@@ -30,25 +33,33 @@ export default function Navbar({navigationRoutesInfo}){
         navbar.lastElementChild.style.width = childInfo.width + 'px';
     }
 
-    const handleResizeEvent = eventHandler(1000, function (){
+    function gotoRoute(index){
+        if(!routesInfo.current) return;
+        document.body.scroll({behavior: 'smooth', top: routesInfo.current[index].top});
+    }
+
+    const handleResizeEvent = eventHandler(function (){
         return handleNavigation(navigationIndex);
-    });
+    }, 1000);
 
-    const handleNavigationOnScroll = eventHandler(100, function (){
-        if(isNavigating.current) return;
+    const handleNavigationOnScroll = function (){
+        if(!routesInfo.current) return;
+        
+        let {scrollTop} = document.body;
 
-        let pagesInfo = navigationRoutesInfo.map(({id}) => 
-            document.getElementById(id)?.getBoundingClientRect()?.top
-        );
-
-        for(let i=0; i<pagesInfo.length; i++){
-            let top = pagesInfo[pagesInfo.length - i - 1];
-            if(-200 < top && top < 200) 
-                return setNavigationIndex(pagesInfo.length - i - 1);
+        for(let i=0; i<routes.length; i++){
+            let {top, bottom} = routesInfo.current[i];
+            if(top <= scrollTop + 100 && scrollTop + 100 < bottom) 
+                return setNavigationIndex(i);
         }
-    })
+    }
 
     useEffect(() => {
+        routesInfo.current = routes.map(({id}) => {
+            let {top, bottom} = document.getElementById(id)?.getBoundingClientRect();
+            return {top, bottom};
+        });
+
         window.addEventListener('resize', handleResizeEvent);
         document.body.addEventListener('scroll', handleNavigationOnScroll);
         return () => {
@@ -66,16 +77,11 @@ export default function Navbar({navigationRoutesInfo}){
     return <>
         <nav ref={navbarBox} id="navbar" className="fixed z-[900] sm:top-10 max-sm:bottom-10">
             <Card3dMove maxDic={40} effect="local" className={'flex items-center justify-center gap-2 h-12 bg-blue-400 text-white rounded-full'}>
-                {navigationRoutesInfo.map((item, index) => {
+                {routes.map((item, index) => {
                     return <a 
                             key={index} 
-                            href={item.url || `#${item.name.toLowerCase()}`} 
-                            onClick={() => {
-                                isNavigating.current = true;
-                                setNavigationIndex(index);
-                                setTimeout(() => {isNavigating.current = false}, 2000)
-                            }} 
-                            className="text-sm z-2 font-semibold px-5 text-center" 
+                            onClick={() => gotoRoute(index)} 
+                            className="text-sm z-2 font-semibold px-5 text-center cursor-pointer" 
                         >
                             <span className="max-sm:hidden">{item.name}</span>
                             <span className="sm:hidden text-lg">{item.icon}</span>

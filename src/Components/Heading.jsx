@@ -1,5 +1,5 @@
 import { Children } from "react"
-import { Card3d } from "./Card"
+import { applyCss } from "../Functions/basic";
 
 export function TypingHeading({className='', speed=100, text='', children=null}){
     return <>

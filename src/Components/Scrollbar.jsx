@@ -5,11 +5,11 @@ export default function Scrollbar({color='rgb(0,0,0,.7)'}){
 
     const [scrollbarHeight, setScrollbarHeight] = useState(0)
 
-    let handelSrollbar =  eventHandler(10,  () => {
+    let handelSrollbar =  eventHandler(() => {
         let totalHeight = document.body.scrollHeight - window.innerHeight;
         let scroll = document.body.scrollTop;
         setScrollbarHeight(scroll/totalHeight);
-    })
+    }, 10)
 
     useEffect(() => {
         document.body.addEventListener('scroll', handelSrollbar);

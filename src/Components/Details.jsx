@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import eventHandler from "../Functions/eventHandler";
+import { applyCss } from "../Functions/basic";
 
 export default function Details({summary, children, className='', open=true}){
 
@@ -7,10 +8,10 @@ export default function Details({summary, children, className='', open=true}){
     const [isOpen, setIsOpen] = useState(open);
     const [maxHeight, setMaxHeight] = useState('')
 
-    const handleResize = eventHandler(1000, function (){
+    const handleResize = eventHandler(function (){
         const {height} = tag.current.getBoundingClientRect();
         setMaxHeight(`${Number(height) + 40}px`);
-    });
+    }, 1000);
     
     useEffect(() => {
         handleResize();
@@ -18,22 +19,23 @@ export default function Details({summary, children, className='', open=true}){
         return () => window.removeEventListener('resize', handleResize);
     }, [])
  
-    return <div className={`relative bg-zinc-700 text-white rounded-xl p-5 transition-all duration-100`} 
+    return <div className={`${className} ${applyCss(className, 'bg-zinc-700 text-white rounded-xl p-5 duration-100')}`} 
         style={{
-            height: isOpen ? maxHeight : '0px'
+            height: isOpen ? maxHeight : '0px',
+            position: 'relative',
+            transitionProperty: 'all',
         }}
     >
-            <button 
+            <div 
                 title="open" 
                 className="h-10 bg-white text-black font-semibold w-fit px-5 flex items-center rounded-full absolute top-0 left-4 translate-y-[-50%] cursor-pointer"
                 onClick={() => setIsOpen(isOpen => !isOpen)}  
             >
                 {summary}
-            </button>
+            </div>
 
             <div 
                 ref={tag}
-                className={className}
                 style={{
                     overflow: 'hidden',
                     scale: isOpen ? '1' : '.4',
@@ -47,3 +49,18 @@ export default function Details({summary, children, className='', open=true}){
     </div>
 }
 
+
+export function DetailsCard({summary, children, className='', summaryColor='black', summaryBg='white'}){
+    return <>
+        <div 
+            className={className + applyCss(className, 'rounded-xl p-4 pt-6 relative text-white bg-zinc-700 hover:bg-zinc-800 transition-all')} 
+        >
+            <div className="rounded-full px-4 py-2 flex items-center font-semibold absolute top-0 translate-y-[-50%]" 
+                style={{
+                    color: summaryColor, 
+                    backgroundColor: summaryBg
+                }}>{summary}</div>
+            {children}
+        </div>
+    </>
+}

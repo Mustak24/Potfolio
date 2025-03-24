@@ -89,7 +89,7 @@ export default function ParticalBackground({particalRedius=8, particalColor=[255
         mouseY.current = e.y;
     }
 
-    const handleResize = eventHandler(1000, init);
+    const handleResize = eventHandler(init, 1000);
 
 
     useEffect(() => {

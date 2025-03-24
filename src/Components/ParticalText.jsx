@@ -100,7 +100,7 @@ CanvasRenderingContext2D.prototype.drawTextOutline = function(lines, x, y){
     }
 }
 
-export default function ParticalText({text='WEB DEV', fontSize='20vw', color='white', className='', pixelSize=4, mouseR=50, gap=1, border=1, originF=5, hidden=false, fillTextPoints=[0,0]}){
+export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColor='white', className='', pixelSize=2, mouseR=50, gap=1, border=1, originF=5, hidden=false, fillTextPoints=[0,0], style={}}){
 
 
     const canvas = useRef(null);
@@ -108,6 +108,7 @@ export default function ParticalText({text='WEB DEV', fontSize='20vw', color='wh
     const particals = useRef([]);
     const mouseX = useRef(0);
     const mouseY = useRef(0);
+    const windowWidth = useRef(0);
 
     const [isHidden, setHidden] = useState(hidden);
 
@@ -135,8 +136,8 @@ export default function ParticalText({text='WEB DEV', fontSize='20vw', color='wh
         ctx.current.textAlign = 'center';
         ctx.current.textBaseline = 'middle';
         ctx.current.lineWidth = border;
-        ctx.current.fillStyle = color;
-        ctx.current.strokeStyle = color;
+        ctx.current.fillStyle = 'white';
+        ctx.current.strokeStyle = 'white';
         ctx.current.drawText(text, ...fillTextPoints);
         ctx.current.drawTextOutline(text, ...fillTextPoints);
 
@@ -149,7 +150,7 @@ export default function ParticalText({text='WEB DEV', fontSize='20vw', color='wh
                 if(!index) continue
                 let [r,g,b] = [data[index], data[index+1], data[index+2]];
                 if(!(r && g && b)) continue;
-                particals.current.push(new Pixel(j, i, pixelSize, color, originF))
+                particals.current.push(new Pixel(j, i, pixelSize, pixelColor, originF))
             }
         }
 
@@ -185,10 +186,18 @@ export default function ParticalText({text='WEB DEV', fontSize='20vw', color='wh
         mouseY.current = pageY - y;
     }
 
-    const handleResize = eventHandler(1000, init);
+    const handleResize = eventHandler(() => {
+        let width = window.innerWidth;
+        if(Math.abs(windowWidth.current - width) < 5) return;
+        
+        windowWidth.current = width;
+        init();
+    }, 1000);
 
 
     useEffect(() => {
+        windowWidth.current = Math.floor(window.innerWidth);
+
         if(!canvas.current) return;
         
         if(!init()) return;
@@ -207,5 +216,5 @@ export default function ParticalText({text='WEB DEV', fontSize='20vw', color='wh
         
     }, [canvas])
 
-    return isHidden ? null : <canvas ref={canvas} className={className}></canvas>
+    return isHidden ? null : <canvas ref={canvas} className={className} style={style}></canvas>
 }
