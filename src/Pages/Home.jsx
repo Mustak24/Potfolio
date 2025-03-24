@@ -59,7 +59,7 @@ export default function Home({}){
                     is
                     <div className="relative flex items-center justify-center">
                         <div className="absolute w-[210px] bg-blue-400 -z-1 rounded-full h-[70px] bottom-0"></div>
-                        <ParticalText text="Mustak" className="w-full max-w-[210px] h-[80px]" fontSize="50px" pixelSize={2} border={0} mouseR={50} fillTextPoints={[0,10]} gap={0} />      
+                        <ParticalText text="Mustak" className="w-full max-w-[220px] h-[80px]" fontSize="50px" pixelSize={2} border={0} mouseR={50} gap={0} />      
                     </div>
                 </div>
 

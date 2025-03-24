@@ -23,6 +23,8 @@ class Pixel{
 
     update(mouseX, mouseY, mouseR){
        
+        let anyUpdate = true;
+
         this.originF = 2 + 1.1*this.originF * this.getDistance(this.origin)/mouseR
 
         if(this.getDistance(this.origin) > this.originF){
@@ -34,12 +36,13 @@ class Pixel{
         } else {
             this.x = this.origin.x;
             this.y = this.origin.y
+            anyUpdate = false
         }
         
-        if(!(mouseX && mouseY)) return;
+        if(!(mouseX && mouseY)) return anyUpdate;
 
         let dis = this.getDistance({x: mouseX, y: mouseY})
-        if(dis > mouseR * this.ease * 10) return;
+        if(dis > mouseR * this.ease * 10) return anyUpdate;
 
         if(this.x < mouseX) this.x -= this.originF ;
         else if(this.x > mouseX) this.x += this.originF ;
@@ -47,6 +50,7 @@ class Pixel{
         if(this.y < mouseY) this.y -= this.originF ;
         else if(this.y > mouseY) this.y += this.originF ;
 
+        return anyUpdate;
     }
 
     getDistance(other){
@@ -100,7 +104,7 @@ CanvasRenderingContext2D.prototype.drawTextOutline = function(lines, x, y){
     }
 }
 
-export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColor='white', className='', pixelSize=2, mouseR=50, gap=1, border=1, originF=5, hidden=false, fillTextPoints=[0,0], style={}}){
+export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColor='white', className='', pixelSize=2, mouseR=50, gap=1, border=1, originF=5, fillTextPoints=[0,0], style={}}){
 
 
     const canvas = useRef(null);
@@ -109,23 +113,19 @@ export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColo
     const mouseX = useRef(0);
     const mouseY = useRef(0);
     const windowWidth = useRef(0);
-
-    const [isHidden, setHidden] = useState(hidden);
+    const needDraw = useRef(true);
 
 
 
     function init(){
 
-        if(!canvas.current || isHidden) return;
+        if(!canvas.current) return;
 
         let {width, height} = canvas.current.getBoundingClientRect();
         width = Math.floor(width);
         height = Math.floor(height);
         
-        if(Math.min(width, height) < 10){
-            setHidden(true)
-            return false;
-        }
+        if(Math.min(width, height) < 10) return;
 
         canvas.current.width = width;
         canvas.current.height = height;
@@ -155,28 +155,34 @@ export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColo
         }
 
         ctx.current.clearRect(0,0,width, height)
-
-        return true;
     }
 
     function animation(){
-        if(isHidden) return;
-
-        requestAnimationFrame(animation);
-        if(!ctx.current) return
+        needDraw.current = false;
 
         ctx.current.clearRect(0, 0, ctx.current.canvas.width, ctx.current.canvas.height);
         for(let partical of particals.current){
             partical.show(ctx.current);
-            partical.update(mouseX.current, mouseY.current, mouseR);
+            let temp = partical.update(mouseX.current, mouseY.current, mouseR);
+            needDraw.current ||= temp;
         }
         mouseX.current = null;
         mouseY.current = null;
+
+        if(needDraw.current) requestAnimationFrame(animation);
+    }
+
+    function startAgainAnimation(){
+        if(!needDraw.current) {
+            needDraw.current = true;
+            animation();
+        }
     }
 
     function handleMouseMove(e){
         mouseX.current = e.offsetX;
         mouseY.current = e.offsetY;
+        startAgainAnimation();
     }
 
     function handleTouch(e){
@@ -184,6 +190,7 @@ export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColo
         let {x, y} = canvas.current.getBoundingClientRect();
         mouseX.current = pageX - x;
         mouseY.current = pageY - y;
+        startAgainAnimation();
     }
 
     const handleResize = eventHandler(() => {
@@ -200,9 +207,9 @@ export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColo
 
         if(!canvas.current) return;
         
-        if(!init()) return;
+        init()
 
-        requestAnimationFrame(animation);
+        animation();
 
         canvas.current?.addEventListener('mousemove', handleMouseMove);
         canvas.current?.addEventListener('touchmove', handleTouch);
@@ -216,5 +223,5 @@ export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColo
         
     }, [canvas])
 
-    return isHidden ? null : <canvas ref={canvas} className={className} style={style}></canvas>
+    return <canvas ref={canvas} className={className} style={style}></canvas>
 }

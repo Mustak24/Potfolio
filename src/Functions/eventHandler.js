@@ -1,10 +1,7 @@
 export default function eventHandler(fn, delay=0){
-    let oldTime = Date.now();
+    let timeOut = null;
     return (event) => {
-        let currentTime = Date.now();
-        if(currentTime - oldTime < delay) return;
-
-        oldTime = currentTime;
-        fn(event);
+        if(timeOut) clearTimeout(timeOut);
+        timeOut = setTimeout(() => fn(event), delay);
     }
 }
