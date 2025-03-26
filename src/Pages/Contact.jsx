@@ -2,7 +2,7 @@ import Button from "../Components/Buttton";
 import Div from "../Components/Div";
 import InputText from "../Components/Input";
 import ParticalText from "../Components/ParticalText";
-import View from "../Components/View";
+import View, { WhenVisible } from "../Components/View";
 import { FaGithub } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
@@ -12,9 +12,9 @@ export default function Contact(){
     return <div id="contact" className="w-full flex flex-col items-center mb-10">
         <View minWidth={1024}>
             <div className="flex items-center justify-center relative font-bold group">
-                <span className="h-full">
+                <WhenVisible className="h-full">
                     <ParticalText text="C" fontSize="150px" className="w-[120px] h-[250px]" pixelSize={4} />
-                </span>
+                </WhenVisible>
                 <div className="group-hover:w-[400px] w-[150px] h-[150px] translate-y-[-20px] flex items-center justify-center flex-col text-2xl group-hover:text-lg gap-2 overflow-hidden text-black transition-all duration-200 relative bg-white rounded-full">
                     <div className="group-hover:opacity-100 transition-all flex items-center justify-center opacity-0 font-serif font-bold duration-300">
                         How Can I Help You ...
@@ -23,9 +23,9 @@ export default function Contact(){
                         Mail : 786mkhan.coc786@gmail.com
                     </div>
                 </div>
-                <span className="">
+                <WhenVisible className="">
                     <ParticalText text="NTACT" fontSize="150px" className="w-[500px]" pixelSize={4}/>
-                </span>
+                </WhenVisible>
             </div>
         </View>
         
@@ -43,10 +43,16 @@ export default function Contact(){
         <div className="flex items-center justify-center gap-5 my-10">
            {
                 [
-                    {icon: <FaGithub />, name: 'Github', link: ''},
-                    {icon: <FaInstagram />, name: 'Instagram', link: ''},
-                    {icon: <SiLeetcode />, name: 'Leetcode', link: ''},
-                ].map(({name, icon, link}) => <Div key={name} title={name} className="size-10 aspect-square"><a href={link}>{icon}</a></Div>)
+                    {icon: <FaGithub />, name: 'Github', link: 'https://github.com/Mustak24'},
+                    {icon: <FaInstagram />, name: 'Instagram', link: 'https://www.instagram.com/must_ak_khan'},
+                    {icon: <SiLeetcode />, name: 'Leetcode', link: 'https://leetcode.com/u/must_ak_khan'},
+                ].map(({name, icon, link}) => {
+                    return <a key={name} target="_blank" href={link}>
+                        <Div title={name} className="size-10 aspect-square">
+                            {icon}
+                        </Div>
+                    </a>
+                })
            }
         </div>
 

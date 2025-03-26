@@ -27,17 +27,16 @@ export function WhenVisible({children, gap=400}){
     
     const box = useRef(null);
     const isBoxResize = useRef(true);
-    const windowWidth = useState(Math.floor(window.innerWidth));
+    const windowWidth = useRef(Math.floor(window.innerWidth));
 
     function handleScroll(){
         if(!box.current) return;
 
         let {top, bottom} = box.current.getBoundingClientRect();
         let {innerHeight: height} = window
-        if(top > height + gap || bottom < -gap){
-            setVisible(false);
-        } else setVisible(true);
+        let visible = !(top > height + gap || bottom < -gap);
 
+        setVisible(visible);
     }
 
     function setBoxSize(){
@@ -57,7 +56,7 @@ export function WhenVisible({children, gap=400}){
     const handleResize = eventHandler(() => {
 
         let currentWindowWidth = Math.floor(window.innerWidth);
-        if(Math.abs(windowWidth.current - currentWindowWidth) < 10) return;
+        if(Math.abs(windowWidth.current - currentWindowWidth) < 5) return;
         
         windowWidth.current = currentWindowWidth
 
@@ -68,16 +67,14 @@ export function WhenVisible({children, gap=400}){
     }, 500);
 
     useEffect(() => {
-        setBoxSize(true)
-        handleScroll();
-
         window.addEventListener('resize', handleResize);
         document.body.addEventListener('scroll', handleScroll);
-        () => {
+
+        return () => {
             document.body.removeEventListener('scroll', handleScroll);
             window.removeEventListener('resize', handleResize);
         }
-    }, [box.current]);
+    }, []);
 
     useEffect(setBoxSize, [isVisible])
 

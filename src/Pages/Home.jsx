@@ -1,7 +1,7 @@
 
 import { TypingHeading } from "../Components/Heading";
 import ParticalText from "../Components/ParticalText";
-import View from "../Components/View";
+import View, { WhenVisible } from "../Components/View";
 
 
 export default function Home({}){
@@ -18,23 +18,25 @@ export default function Home({}){
                         pixelSize={5} 
                     
                         />
-                <div className="text-[.2em]  translate-y-[-5vw] flex flex-col items-center">
-                    <ParticalText 
-                        text="Mustak Khan" 
-                        fontSize="80px" 
-                        border={0} 
-                        mouseR={50} 
-                        gap={0}  
-                        pixelSize={3}
-                        className="w-full h-[120px] bg-[rgb(0,0,0,.5)]" 
-                        style={{filter: "blur(1px) contrast(20)"}} 
-                    />
-                    <TypingHeading 
-                        speed={20} 
-                        className="text-xs text-pretty max-w-[500px] opacity-90" 
-                        text="A dedicated Web Developer building scalable web applications using React, Nextjs, Node.js, Express, and MongoDB."
-                    />
-                </div>
+                <WhenVisible>
+                    <div className="text-[.2em]  translate-y-[-5vw] flex flex-col items-center">
+                        <ParticalText 
+                            text="Mustak Khan" 
+                            fontSize="80px" 
+                            border={0} 
+                            mouseR={50} 
+                            gap={0}  
+                            pixelSize={3}
+                            className="w-full h-[120px] bg-[rgb(0,0,0,.5)]" 
+                            style={{filter: "blur(1px) contrast(20)"}} 
+                        />
+                        <TypingHeading 
+                            speed={20} 
+                            className="text-xs text-pretty max-w-[500px] opacity-90" 
+                            text="A dedicated Web Developer building scalable web applications using React, Nextjs, Node.js, Express, and MongoDB."
+                            />
+                    </div>
+                </WhenVisible>
             </div>
         </View>
 

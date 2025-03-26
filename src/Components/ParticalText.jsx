@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import eventHandler from "../Functions/eventHandler";
 
 class Pixel{
@@ -24,10 +24,11 @@ class Pixel{
     update(mouseX, mouseY, mouseR){
        
         let anyUpdate = true;
+        let disFromOrigin = this.getDistance(this.origin)
 
-        this.originF = 2 + 1.1*this.originF * this.getDistance(this.origin)/mouseR
+        this.originF = 2 + 1.1*this.originF * disFromOrigin/mouseR
 
-        if(this.getDistance(this.origin) > this.originF){
+        if(disFromOrigin > this.originF){
             if(this.x > this.origin.x) this.x -= this.originF  * this.ease;
             else if(this.x < this.origin.x) this.x += this.originF * this.ease;
             
@@ -112,8 +113,8 @@ export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColo
     const particals = useRef([]);
     const mouseX = useRef(0);
     const mouseY = useRef(0);
-    const windowWidth = useRef(0);
     const needDraw = useRef(true);
+    const windowWidth = useRef(Math.floor(window.innerWidth));
 
 
 
@@ -147,10 +148,8 @@ export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColo
         for(let i=0; i<height; i += pixelSize + gap){
             for(let j=0; j<width; j += pixelSize + gap){
                 let index = 4*(i*width + j);
-                if(!index) continue
-                let [r,g,b] = [data[index], data[index+1], data[index+2]];
-                if(!(r && g && b)) continue;
-                particals.current.push(new Pixel(j, i, pixelSize, pixelColor, originF))
+                if(index && data[index + 3])
+                    particals.current.push(new Pixel(j, i, pixelSize, pixelColor, originF))
             }
         }
 
@@ -204,12 +203,9 @@ export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColo
 
 
     useEffect(() => {
-        windowWidth.current = Math.floor(window.innerWidth);
-
         if(!canvas.current) return;
         
         init()
-
         animation();
 
         canvas.current?.addEventListener('mousemove', handleMouseMove);
@@ -222,7 +218,7 @@ export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColo
             window.removeEventListener('resize', handleResize);
         }
         
-    }, [canvas])
+    }, []);
 
     return <canvas ref={canvas} className={className} style={style}></canvas>
 }

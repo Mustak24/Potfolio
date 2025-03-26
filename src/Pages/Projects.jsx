@@ -26,7 +26,8 @@ export default function Projects(){
                         keyPoints: [
                             'Leveraged Partial Prerendering and After for faster loading.',
                             'Simplified idea submission with a clean, intuitive design.',
-                        ]
+                        ],
+                        url: 'https://ex2403.netlify.app'
                     },
                     {
                         name: "Notes With Bot", 
@@ -36,7 +37,8 @@ export default function Projects(){
                         keyPoints: [
                             'Leveraged Partial Prerendering and After for faster loading.',
                             'Simplified idea submission with a clean, intuitive design.',
-                        ]
+                        ],
+                        url: 'https://ex2404.netlify.app'
                     },
                     {
                         name: "Attendance Tracker System", 
@@ -46,7 +48,8 @@ export default function Projects(){
                         keyPoints: [
                             'Leveraged Partial Prerendering and After for faster loading.',
                             'Simplified idea submission with a clean, intuitive design.',
-                        ]
+                        ],
+                        url: 'https://ex2406.netlify.app'
                     },
                 ].map(({name, about, imgUrl, keyPoints, techStack}) => <ProjectCard name={name} about={about} imgUrl={imgUrl} keyPoints={keyPoints} techStack={techStack} key={name} />)
             }
@@ -55,9 +58,30 @@ export default function Projects(){
         <br /><br />
 
         <DetailsCard summary={'Mini Project'} className="flex flex-wrap gap-5 pt-10">
-            {['XOX', 'Number Game', 'Weather App', 'Sanke Game', 'YT Add Skiper', 'Alaram Clock',  'Bingoo Game', 'Calculater', 'Clock', 'Infix to Postfix Conveter', 'KBC Game ( Python )', 'Todo Notes', 'Number Guess Game', 'Stone Paper Scisor Game', 'Morden XOX Game'].map((e, i) => {
-                return <div key={i} className="h-8 px-2 text-sm font-semibold bg-zinc-700 hover:bg-zinc-800 transition-all duration-200 cursor-default rounded-md flex items-center border-1 border-[rgb(255,255,255,.5)]">{e}</div>
-            })}
+            {
+                [
+                    {name: 'XOX', url: 'https://github.com/Mustak24/XOX'}, 
+                    {name: 'Number Game', url: 'https://github.com/Mustak24/Number-Box-Game'}, 
+                    {name: 'Weather App', url: 'https://github.com/Mustak24/Weather'}, 
+                    {name: 'Sanke Game', url: 'https://github.com/Mustak24/Snake-Game'}, 
+                    {name: 'YT Add Skiper', url: 'https://github.com/Mustak24/YT-ADD-SKIPER'}, 
+                    {name: 'Alaram Clock', url: ''}, 
+                    {name: 'Bingoo Game', url: ''}, 
+                    {name: 'Calculater', url: 'https://github.com/Mustak24/Calculator'}, 
+                    {name: 'Clock', url: 'https://github.com/Mustak24/Clock'}, 
+                    {name: 'Infix to Postfix Conveter', url: 'https://github.com/Mustak24/Infix-to-postfix'}, 
+                    {name: 'KBC Game ( Python )', url: ''}, 
+                    {name: 'Todo Notes', url: 'https://github.com/Mustak24/Tudo-Notes'}, 
+                    {name: 'Number Guess Game', url: 'https://github.com/Mustak24/Number-Guess-Game'}, 
+                    {name: 'Stone Paper Scisor Game', url: ''}, 
+                    {name: 'Morden XOX Game', url: ''}, 
+                    {name: 'Sand Simulation', url: 'https://github.com/Mustak24/Sand-Effect'}, 
+                    {name: '2d Raycasting', url: ''}, 
+                    {name: 'Game of Life', url: 'https://github.com/Mustak24/Game-of-Life'}
+                ].map(({name, url}, i) => {
+                    return <a target="_blank" href={url} key={i} className="h-8 px-2 text-sm font-semibold bg-zinc-700 hover:bg-zinc-800 transition-all duration-200 cursor-default rounded-md flex items-center border-1 border-[rgb(255,255,255,.5)]">{name}</a>
+                })
+            }
         </DetailsCard>
     </div>
 }
@@ -77,7 +101,7 @@ function ProjectCard({imgUrl='', name='', about='', keyPoints=[], techStack=[]})
             </div>
 
             <div className="flex flex-wrap gap-5 lg:max-w-[450px]">
-                <DetailsCard summary={name} className="flex-1 basis-[280px]">
+                <DetailsCard summary={'About it'} className="flex-1 basis-[280px]">
                     <p>{about}</p>
                 </DetailsCard>
                 <div className="bg-zinc-700 hover:bg-zinc-800 rounded-xl flex-1 p-5 basis-[280px]">
