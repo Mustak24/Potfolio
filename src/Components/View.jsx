@@ -42,11 +42,9 @@ export function WhenVisible({children, gap=400}){
     function setBoxSize(){
         if(!(box.current && isBoxResize.current)) return;
   
-        box.current.style.width = 'auto';
         box.current.style.height = 'auto';
 
-        let {width, height} = box.current.getBoundingClientRect();
-        box.current.style.width = width + 'px';
+        let {height} = box.current.getBoundingClientRect();
         box.current.style.height = height + 'px';
         isBoxResize.current = false;
 
@@ -79,4 +77,37 @@ export function WhenVisible({children, gap=400}){
     useEffect(setBoxSize, [isVisible])
 
     return <div ref={box}>{isVisible ? children : null}</div>
+}
+
+export function AnimateWhenVisible({children, gap=0 , className='', from={opacity: '0'}, to={opacity: '1'}, delay=100}){
+
+    const box = useRef(null);
+    const timeOut = useRef(null);
+    const [style, setStyle] = useState(from);
+
+    function handleStyle(newStyle){
+
+        if(timeOut.current) clearTimeout(timeOut)
+        timeOut.current = setTimeout(() => {
+            setStyle(() => newStyle);
+        }, delay);
+    }
+
+    function handleScroll(){
+        if(!box.current) return;
+
+        let {top, bottom} = box.current.getBoundingClientRect();
+        let {innerHeight: height} = window
+        let visible = (top + gap < height && bottom > -gap);
+
+        if(visible) handleStyle(to);
+        else handleStyle(from);
+    }
+
+    useEffect(() => {
+        document.body.addEventListener('scroll', handleScroll);
+        return () => document.body.removeEventListener('scroll', handleScroll);
+    }, [])
+
+    return <div ref={box} style={style} className={className}>{children}</div>
 }

@@ -25,6 +25,7 @@ export default function About(){
                 <div className="text-6xl font-semibold mb-4">@Mustak24</div>
                 <div className="px-2 flex flex-col gap-10 ">
                     <p className="indent-8 px-2 max-w-[600px]" >My self Mustak khan from Udaipur. I am a passionate developer always exploring and learning new technologies. </p>
+                    
                     <div className="flex gap-10">
                         <div className="font-semibold text-xs">
                             <Details summary="Frontend Dev" className={'flex-1'}>
@@ -33,6 +34,7 @@ export default function About(){
                                 </div>
                             </Details>
                         </div>
+
                         <div className="font-semibold text-xs">
                             <Details summary="Backend Dev" className={'flex-1'}>
                                 <div className="text-lg w-[120px]">
@@ -40,6 +42,7 @@ export default function About(){
                                 </div>
                             </Details>
                         </div>
+
                         <div className="font-semibold text-xs">
                             <Details summary="Programming Languages" className={'flex-1'}>
                                 <div className="text-lg w-[180px]">
@@ -52,21 +55,29 @@ export default function About(){
             </div>
 
             <div className="flex flex-col flex-1 gap-10 max-w-[400px] ">
-                <Details summary="Frontend Dev" className={'flex-1'}>
-                    <p className="text-sm">
-                        I'm a frontend developer with a passion for creating beautiful and user-friendly interfaces.
-                    </p>
-                </Details>
-                <Details summary="Backend Dev" className={'flex-1'}>
-                    <p className="text-sm">
-                        I'm a frontend developer with a passion for creating beautiful and user-friendly interfaces.
-                    </p>
-                </Details>
-                <Details summary="UI Designer" className={'flex-1'}>
-                    <p className="text-sm">
-                        I'm a frontend developer with a passion for creating beautiful and user-friendly interfaces.
-                    </p>
-                </Details>
+                <div>
+                    <Details summary="Frontend Dev" className={'flex-1'}>
+                        <p className="text-sm">
+                            I'm a frontend developer with a passion for creating beautiful and user-friendly interfaces.
+                        </p>
+                    </Details>
+                </div>
+
+                <div>
+                    <Details summary="Backend Dev" className={'flex-1'}>
+                        <p className="text-sm">
+                            I'm a frontend developer with a passion for creating beautiful and user-friendly interfaces.
+                        </p>
+                    </Details>
+                </div>
+
+                <div>
+                    <Details summary="UI Designer" className={'flex-1'}>
+                        <p className="text-sm">
+                            I'm a frontend developer with a passion for creating beautiful and user-friendly interfaces.
+                        </p>
+                    </Details>
+                </div>
             </div>
         </div>
         

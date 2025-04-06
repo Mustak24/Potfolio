@@ -131,7 +131,7 @@ export default function ParticalText({text='WEB DEV', fontSize='40px', pixelColo
         canvas.current.width = width;
         canvas.current.height = height;
 
-        ctx.current = canvas.current.getContext('2d');
+        ctx.current = canvas.current.getContext('2d', {willReadFrequently: true});
 
         ctx.current.font = `${fontSize} sans-serif`;
         ctx.current.textAlign = 'center';

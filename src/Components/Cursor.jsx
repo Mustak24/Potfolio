@@ -1,47 +1,117 @@
-import { useState } from "react";
-import { useEffect } from "react";
-
-export default function Cursor({size=80}){
-   
-    const [speed, setSpeed] = useState(0.1);
+import { useEffect, useRef } from "react"
 
 
-    function handelCursor(e) {
-        const cursor = document.getElementById('cursor')
-        if(!cursor) return;
+export default function Cursor({className, maxSpeed=15}){
 
-        cursor.style.display = (
-          e.pageX < 10 || e.pageX > window.innerWidth - 10 || 
-          e.pageY < 10 || e.pageY > window.innerHeight - 10) ? 'none' : 'block';
-        cursor.style.top = e.pageY + 'px';
-        cursor.style.left = e.pageX + 'px';
+  const cursor = useRef(null);
+  const pos = useRef({x: window.innerWidth/2, y: window.innerHeight/2});
+  const vel = useRef({x: 0, y: 0});
+  const acc = useRef({x: 0, y: 0});
+  const mouseX = useRef(window.innerWidth/2);
+  const mouseY = useRef(window.innerHeight/2);
+  const isMoving = useRef(false);
+  
+  function magnitude({x, y}){
+    return Math.sqrt(x*x + y*y);
+  }
+
+  function validTag(tag){
+    
+    while(tag){
+      let {dataset} = tag;
+      tag = tag.parentElement;
+      if(!dataset) continue;
+      if(dataset.cursor) return dataset;
+    }
+
+    return false;
+  }
+
+  function move(){
+    if(!cursor.current) {
+      isMoving.current = false;
+      return;
+    }
+
+    update();
+    cursor.current.style.left = pos.current.x + 'px';
+    cursor.current.style.top = pos.current.y + 'px';
+    
+    if(isMoving.current) requestAnimationFrame(move)
+  }
 
 
-        let dic = Math.sqrt((e.pageX - (this.x || 0)) ** 2 + (e.pageY - (this.y || 0)) ** 2)
-        let time = Date.now() - (this.t || 0);
+  function update(){
+    if(!mouseX.current || !mouseY.current || !pos.current || !vel.current || ! acc.current) return;
 
-        setSpeed((dic / time) > 1 ? 1 : dic / time * 2)      
-        
-        this.x = e.pageX;
-        this.y = e.pageY;
-        this.t = Date.now();
+    let dx = mouseX.current - pos.current.x;
+    let dy = mouseY.current - pos.current.y;
+    let m = magnitude({x: dx, y: dy});
+
+    if(m < maxSpeed) {
+      pos.current.x = mouseX.current;
+      pos.current.y = mouseY.current;
+      return;
+    } 
+
+    
+    vel.current.x += dx;
+    vel.current.y += dy;
+    let vm = magnitude(vel.current);
+
+    if(vm && vm > maxSpeed){
+      vel.current.x *= maxSpeed/vm;
+      vel.current.y *= maxSpeed/vm;
     }
     
-      useEffect(() => {
-        window.addEventListener('mousemove', handelCursor)
-        return () => {
-          window.removeEventListener('mousemove', handelCursor)
-        }
-      }, [])
+    pos.current.x += vel.current.x;
+    pos.current.y += vel.current.y;
+  }
+
+
+  function handleMouseMove(e){
+    let dataset = validTag(e.target)
+    let {pageX: x, pageY: y} = e;
+    
+    mouseX.current = x;
+    mouseY.current = y;
+    
+    if(!cursor.current) return;
+    
+    if(!dataset){
+      isMoving.current = false;
+      cursor.current.style.scale = '0.2';
+      cursor.current.style.opacity = '0';
+      pos.current = {x, y};
+      return;
+    }
+
+    if(isMoving.current) return;
+
+    cursor.current.style.scale = '1';
+    cursor.current.style.opacity = '1';
+    cursor.current.innerText = dataset.cursortext || 'click'
+    isMoving.current = true;
+    move();
+  }
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [])
 
    
-   return <div id='cursor' className='max-sm:hidden mix-blend-difference bg-white rounded-full fixed translate-x-[-50%] translate-y-[-50%]'
+  return  <div 
+      ref={cursor} 
+      className={className}
       style={{
-        scale: `${speed < 1 ? 1 : speed*3}`,
-        transition: 'scale 1s',
-        mixBlendMode: 'difference',
-        width: size + 'px',
-        aspectRatio: 1
-      }}
-   ></div>
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        transform: 'translate(-50%, -50%)',
+        transition: 'opacity .2s, scale .2s',
+        transformOrigin: '0px 0px'
+      }}></div>
 }
