@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 
 
-export default function Cursor({className, maxSpeed=15}){
+export default function Cursor({className, maxSpeed=25}){
 
   const cursor = useRef(null);
   const pos = useRef({x: window.innerWidth/2, y: window.innerHeight/2});
@@ -10,6 +10,12 @@ export default function Cursor({className, maxSpeed=15}){
   const mouseX = useRef(window.innerWidth/2);
   const mouseY = useRef(window.innerHeight/2);
   const isMoving = useRef(false);
+  
+  // Damping factor to reduce oscillation
+  const damping = 0.85;
+  
+  // Spring constant for smoother acceleration
+  const springConstant = 0.15;
   
   function magnitude({x, y}){
     return Math.sqrt(x*x + y*y);
@@ -48,22 +54,30 @@ export default function Cursor({className, maxSpeed=15}){
     let dy = mouseY.current - pos.current.y;
     let m = magnitude({x: dx, y: dy});
 
-    if(m < maxSpeed) {
+    if(m < 0.5) {
       pos.current.x = mouseX.current;
       pos.current.y = mouseY.current;
+      vel.current.x = 0;
+      vel.current.y = 0;
       return;
     } 
-
     
-    vel.current.x += dx;
-    vel.current.y += dy;
+    // Apply spring force
+    acc.current.x = dx * springConstant;
+    acc.current.y = dy * springConstant;
+    
+    // Update velocity with damping
+    vel.current.x = vel.current.x * damping + acc.current.x;
+    vel.current.y = vel.current.y * damping + acc.current.y;
+    
+    // Apply max speed limit
     let vm = magnitude(vel.current);
-
     if(vm && vm > maxSpeed){
       vel.current.x *= maxSpeed/vm;
       vel.current.y *= maxSpeed/vm;
     }
     
+    // Update position
     pos.current.x += vel.current.x;
     pos.current.y += vel.current.y;
   }
