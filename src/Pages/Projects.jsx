@@ -9,6 +9,17 @@ export default function Projects(){
             {
                 [
                     {
+                        name: "Pixel Wallet", 
+                        about: "Offline Money Manager is your go-to personal finance tracker, designed to help you manage your expenses without internet access.",
+                        imgUrl: '/Images/pixel-wallet.png',
+                        techStack: ['React Native', 'Vector icons', 'MMKV', 'Android Studio', 'TypeScript'],
+                        keyPoints: [
+                            '100% Offline Functionality – No sign-up, no internet required',
+                            'Built with React Native for fast, cross-platform support',
+                        ],
+                        url: 'https://play.google.com/store/apps/details?id=com.e_wallet.pixelProphet&pcampaignid=web_share'
+                    },
+                    {
                         name: "Marble Wesite", 
                         about: "This e-commerce platform is a comprehensive solution for showcasing and selling marble products, designed with an elegant and user-friendly interface.",
                         imgUrl: '/Images/ex2403.png',

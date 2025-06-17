@@ -30,7 +30,7 @@ export default function About(){
                         <div className="font-semibold text-xs">
                             <Details summary="Frontend Dev" className={'flex-1'}>
                                 <div className="text-lg w-[120px]">
-                                    {['React', 'Next', 'Tailwind'].map((e, i) => <p key={i} ># {e}</p>)}
+                                    {['React', 'Next', 'Tailwind', 'React Native'].map((e, i) => <p key={i} ># {e}</p>)}
                                 </div>
                             </Details>
                         </div>
@@ -38,7 +38,7 @@ export default function About(){
                         <div className="font-semibold text-xs">
                             <Details summary="Backend Dev" className={'flex-1'}>
                                 <div className="text-lg w-[120px]">
-                                    {['Node', 'Express', 'MongoDb'].map((e, i) => <p key={i} ># {e}</p>)}
+                                    {['Node', 'Express', 'MongoDb', 'Mongoose'].map((e, i) => <p key={i} ># {e}</p>)}
                                 </div>
                             </Details>
                         </div>
@@ -46,7 +46,7 @@ export default function About(){
                         <div className="font-semibold text-xs">
                             <Details summary="Programming Languages" className={'flex-1'}>
                                 <div className="text-lg w-[180px]">
-                                    {['C', 'C++', 'Python'].map((e, i) => <p key={i} ># {e}</p>)}
+                                    {['C', 'C++', 'Python', 'TypeScript'].map((e, i) => <p key={i} ># {e}</p>)}
                                 </div>
                             </Details>
                         </div>
