@@ -3,8 +3,7 @@ import Div from "../Components/Div";
 import InputText from "../Components/Input";
 import ParticalText from "../Components/ParticalText";
 import View, { WhenVisible } from "../Components/View";
-import { FaGithub } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
+import { FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 
 
@@ -36,7 +35,7 @@ export default function Contact(){
         <form action="" className="flex flex-col items-center justify-center gap-5 bg-[rgb(25,25,25,.9)] p-10 rounded-xl max-w-[900px] w-full">
             <InputText label="Name" placeholder="Enter your Name" className="w-full"/>
             <InputText label="Email" placeholder="Enter your Email" className="w-full"/>
-            <InputText label="Msg" placeholder="Enter your Msg" className="w-full"/>
+            <InputText label="Massage" placeholder="Enter your Msg" className="w-full"/>
             <Button title="Send" className="w-full border-2" />
         </form>
 
@@ -46,17 +45,15 @@ export default function Contact(){
                     {icon: <FaGithub />, name: 'Github', link: 'https://github.com/Mustak24'},
                     {icon: <FaInstagram />, name: 'Instagram', link: 'https://www.instagram.com/must_ak_khan'},
                     {icon: <SiLeetcode />, name: 'Leetcode', link: 'https://leetcode.com/u/must_ak_khan'},
+                    {icon: <FaLinkedinIn />, name: 'Linked In', link: 'https://www.linkedin.com/in/mustak24?utm_content=profile'},
                 ].map(({name, icon, link}) => {
                     return <a key={name} target="_blank" href={link}>
-                        <Div title={name} className="size-10 aspect-square">
+                        <Div title={name} className="size-10 aspect-square text-nowrap">
                             {icon}
                         </Div>
                     </a>
                 })
            }
         </div>
-
-       
-
     </div>
 }
