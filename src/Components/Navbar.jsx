@@ -5,6 +5,7 @@ import { FaCode } from "react-icons/fa";
 import { MdOutlineContacts } from "react-icons/md";
 import { Card3dMove } from "./Card";
 import eventHandler from "../Functions/eventHandler";
+import { SlidingTextAnimationViewOnHover } from "./View";
 
 export default function Navbar({routes}){
     routes = [
@@ -83,7 +84,7 @@ export default function Navbar({routes}){
                             onClick={() => gotoRoute(index)} 
                             className="text-sm z-2 font-semibold px-5 text-center cursor-pointer" 
                         >
-                            <span className="max-sm:hidden">{item.name}</span>
+                            <SlidingTextAnimationViewOnHover text={item.name} animationDuration={300} />
                             <span className="sm:hidden text-lg">{item.icon}</span>
                     </a>
                 })}

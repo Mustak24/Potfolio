@@ -1,6 +1,7 @@
 
 import Details from "../Components/Details";
 import Marquee from "../Components/Marquee";
+import { SlidingTextAnimationView, SlidingTextAnimationViewOnHover, WhenVisible } from "../Components/View";
 
 
 export default function About(){
@@ -22,7 +23,9 @@ export default function About(){
             </div>
 
             <div className="max-lg:hidden text-white flex-1">
-                <div className="text-6xl font-semibold mb-4">@Mustak24</div>
+                <div className="w-fit mb-4 cursor-default" >
+                    <SlidingTextAnimationViewOnHover  className="text-6xl font-semibold" text={'@Mustak24'} />
+                </div>
                 <div className="px-2 flex flex-col gap-10 ">
                     <p className="indent-8 px-2 max-w-[600px]" >My self Mustak khan from Udaipur. I am a passionate developer always exploring and learning new technologies. </p>
                     

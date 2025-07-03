@@ -1,0 +1,10 @@
+
+@keyframes animation-translate-y-100-0 {
+    0%{transform: translateY(100%);}
+    100%{transform: translateY(0%);}
+  }
+  
+  @keyframes animation-opacity-0-1 {
+    0%{opacity: 0;}
+    100%{opacity: 1;}
+  }

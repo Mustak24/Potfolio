@@ -1,6 +1,6 @@
 import Button from "../Components/Buttton";
 import Div from "../Components/Div";
-import InputText from "../Components/Input";
+import InputText, { InputTextArea } from "../Components/Input";
 import ParticalText from "../Components/ParticalText";
 import View, { WhenVisible } from "../Components/View";
 import { FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
@@ -35,7 +35,7 @@ export default function Contact(){
         <form action="" className="flex flex-col items-center justify-center gap-5 bg-[rgb(25,25,25,.9)] p-10 rounded-xl max-w-[900px] w-full">
             <InputText label="Name" placeholder="Enter your Name" className="w-full"/>
             <InputText label="Email" placeholder="Enter your Email" className="w-full"/>
-            <InputText label="Massage" placeholder="Enter your Msg" className="w-full"/>
+            <InputTextArea label="Massage" placeholder="Enter your Msg" className="w-full"/>
             <Button title="Send" className="w-full border-2" />
         </form>
 

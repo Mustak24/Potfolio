@@ -111,3 +111,56 @@ export function AnimateWhenVisible({children, gap=0 , className='', from={opacit
 
     return <div ref={box} style={style} className={className}>{children}</div>
 }
+
+
+
+export function SlidingTextAnimationView({text, animationDuration=500, animationDelay=25, className=''}) {
+    return (
+        <div className="flex items-center overflow-hidden">
+            {text.split('').map((char, index) => (
+                <div key={index} className={className}
+                    style={{
+                        animationName: 'animation-translate-y-100-0, animation-opacity-0-1',
+                        animationDuration: `${animationDuration}ms`,
+                        animationDelay: `${index * animationDelay}ms`,
+                        animationFillMode: 'forwards',
+                        transform: 'translateY(100%)',
+                        visibility: char === ' ' ? 'hidden' : 'visible'
+                    }}
+                >{char === ' ' ? '_' : char}</div>
+            ))}
+        </div>
+    )
+}
+
+
+
+export function SlidingTextAnimationViewOnHover({text, animationDuration=500, animationDelay=25, className='', containerClassName=''}) {
+    
+    const [isHover, setHover] = useState(false);
+
+    return (
+        <div 
+            onMouseEnter={() => setHover(true)} 
+            onMouseLeave={() => setHover(false)} 
+            className={containerClassName}
+            style={{display: 'flex', alignItems: 'center', overflow: 'hidden'}}
+        >
+            {text.split('').map((char, index) => (
+                <div key={index}
+                    className="relative flex flex-col" 
+                    style={{
+                        viewTransitionName: `all`,
+                        transitionDuration: `${animationDuration}ms`,
+                        transitionDelay: `${index * animationDelay}ms`,
+                        transform: isHover ? `translateY(-100%)` : 'translateY(0%)',
+                        visibility: char === ' ' ? 'hidden' : 'visible',
+                    }}
+                >
+                    <div className={className} >{char === ' ' ? '_' : char}</div>
+                    <div className={`absolute translate-y-[100%] ${className}`} >{char === ' ' ? '_' : char}</div>
+                </div>
+            ))}
+        </div>
+    )
+}
