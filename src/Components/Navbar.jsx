@@ -82,10 +82,12 @@ export default function Navbar({routes}){
                     return <a 
                             key={index} 
                             onClick={() => gotoRoute(index)} 
-                            className="text-sm z-2 font-semibold px-5 text-center cursor-pointer" 
+                            className="text-sm z-2 font-semibold px-5 text-center cursor-pointer flex flex-col items-center justify-center" 
                         >
-                            <SlidingTextAnimationViewOnHover text={item.name} animationDuration={300} />
-                            <span className="sm:hidden text-lg">{item.icon}</span>
+                            <span className="sm:hidden text-md">{item.icon}</span>
+                            <SlidingTextAnimationViewOnHover 
+                                text={item.name} animationDuration={300} className="max-sm:text-[10px]" 
+                            />
                     </a>
                 })}
                 <div className="absolute h-full z-1 bg-black border-3 border-white rounded-full transition-all duration-200"></div>
