@@ -1,4 +1,5 @@
 import { DetailsCard } from "../Components/Details";
+import MovingViewOnScroll from "../Components/MovingViewOnScroll";
 import { AnimateWhenVisible } from "../Components/View";
 
 export default function Projects(){
@@ -99,19 +100,21 @@ function ProjectCard({imgUrl='', name='', about='', keyPoints=[], techStack=[], 
                 data-cursortext='View'
                 className="w-full lg:max-w-[700px] max-h-[420px] border-1 rounded-lg border-white relative overflow-hidden flex items-center justify-center"
             >
-                <div className="absolute blur-lg w-full h-full translate-z-[1px]">
-                    <img src={imgUrl} alt="404" loading="lazy" className="w-full h-full" />
-                </div>
+                    <div className="absolute blur-lg w-full h-full translate-z-[1px]">
+                        <MovingViewOnScroll>
+                            <img src={imgUrl} alt="404" loading="lazy" className="w-full h-full" />
+                        </MovingViewOnScroll>
+                    </div>
 
-                <AnimateWhenVisible 
-                    className="p-5 w-full max-w-[700px] h-full translate-z-[10px] transition-all duration-500"
-                    gap={0}
-                    delay={200}
-                    from={{scale: '0', opacity: '0'}}    
-                    to={{scale: '1', opacity: '1'}}
-                >
-                    <img src={imgUrl} alt="404" loading="lazy" className="w-full h-full object-contain" />
-                </AnimateWhenVisible>
+                    <AnimateWhenVisible 
+                        className="p-5 w-full max-w-[700px] h-full translate-z-[10px] transition-all duration-500"
+                        gap={0}
+                        delay={200}
+                        from={{scale: '0', opacity: '0'}}    
+                        to={{scale: '1', opacity: '1'}}
+                        >
+                        <img src={imgUrl} alt="404" loading="lazy" className="w-full h-full object-cover" />
+                    </AnimateWhenVisible>
             </a>
 
             <div className="flex flex-wrap gap-5 lg:max-w-[450px]">
