@@ -10,6 +10,17 @@ export default function Projects(){
             {
                 [
                     {
+                        name: "Vyapar Drishti", 
+                        about: "Vyapar Drishti is a GST-compliant billing and inventory management solution designed for small and medium businesses in India.",
+                        imgUrl: '/Images/vyapar-drishti.png',
+                        techStack: ['React Native', 'Vector icons', 'MMKV', 'Redux', 'TypeScript'],
+                        keyPoints: [
+                            'User can manage inventory and stokes and track payment.',
+                            'Built with React Native for fast, cross-platform support',
+                        ],
+                        url: 'https://play.google.com/store/apps/details?id=com.pixelprophet.vyapardrishti&hl=en_IN'
+                    },
+                    {
                         name: "Pixel Wallet", 
                         about: "Offline Money Manager is your go-to personal finance tracker, designed to help you manage your expenses without internet access.",
                         imgUrl: '/Images/pixel-wallet.png',
