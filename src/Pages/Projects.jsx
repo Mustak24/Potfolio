@@ -40,7 +40,7 @@ export default function Projects(){
                             'Leveraged Partial Prerendering and After for faster loading.',
                             'Simplified idea submission with a clean, intuitive design.',
                         ],
-                        url: 'https://ex2403.netlify.app'
+                        url: 'https://new-quality-marble.netlify.app'
                     },
                     {
                         name: "Notes With Bot", 
